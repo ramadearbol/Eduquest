@@ -1,4 +1,3 @@
-// src/components/Navbar.jsx
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../styles/Navbar.css';
@@ -7,9 +6,14 @@ import iconoLogo from '../assets/Logo.png';
 import iconoRetos from '../assets/Retos.png';
 import iconoPerfil from '../assets/Perfil.png';
 import iconoTrofeo from '../assets/Trofeo.png';
+import iconoApagar from '../assets/Apagar.png'; 
 
 function Navbar() {
   const navigate = useNavigate();
+
+  const handleLogout = () => {
+    navigate("/");
+  };
 
   return (
     <div className="navbar">
@@ -34,6 +38,15 @@ function Navbar() {
           Perfil
         </li>
       </ul>
+
+      <div className="logout-container">
+        <ul className="navbar-links">
+          <li onClick={handleLogout}>
+            <img src={iconoApagar} alt="Cerrar Sesión" className="icon logout-icon" />
+            Cerrar Sesión
+          </li>
+        </ul>
+      </div>
     </div>
   );
 }
