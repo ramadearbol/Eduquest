@@ -1,6 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/Register.css";
+import logoEduQuest from "../assets/Logo.png";
 
 function Register() {
   const navigate = useNavigate();
@@ -13,7 +14,7 @@ function Register() {
     <div className="register-container">
       <div className="login-box">
         <div className="logo-container">
-          <img src="/src/assets/Logo.png" alt="Logo EduQuest" className="logo-img" />
+          <img src={logoEduQuest} alt="Logo EduQuest" className="logo-img" />
         </div>
         <div className="form-container">
           <input type="email" placeholder="Correo electrónico" className="input-field" />
