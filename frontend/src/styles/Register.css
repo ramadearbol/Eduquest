@@ -1,0 +1,29 @@
+/* Basado en Login.css, adaptado para registro */
+@import url('./Login.css');
+
+.register-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100%;
+  background-color: rgb(32, 47, 54); /* Mismo fondo que login */
+}
+
+/* Reutiliza clases de login-box, input-field, register-btn del Login.css */
+
+.register-btn {
+  background-color: #32a852;
+  color: white;
+  padding: 12px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 10px 0;
+  transition: background-color 0.3s;
+}
+
+.register-btn:hover {
+  background-color: #28a745;
+}

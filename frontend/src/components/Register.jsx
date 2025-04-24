@@ -1,6 +1,6 @@
-// src/components/Register.jsx
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import "../styles/Register.css";
 
 function Register() {
   const navigate = useNavigate();
@@ -10,9 +10,18 @@ function Register() {
   };
 
   return (
-    <div className="login-container">
-      <h1>Registro en EduQuest</h1>
-      <button onClick={handleRegister}>Finalizar Registro</button>
+    <div className="register-container">
+      <div className="login-box">
+        <div className="logo-container">
+          <img src="/src/assets/Logo.png" alt="Logo EduQuest" className="logo-img" />
+        </div>
+        <div className="form-container">
+          <input type="email" placeholder="Correo electrónico" className="input-field" />
+          <input type="text" placeholder="Usuario" className="input-field" />
+          <input type="password" placeholder="Contraseña" className="input-field" />
+          <button className="register-btn" onClick={handleRegister}>Finalizar Registro</button>
+        </div>
+      </div>
     </div>
   );
 }
