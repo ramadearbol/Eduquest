@@ -1,0 +1,15 @@
+.dashboard-layout {
+  display: flex;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+}
+
+.dashboard-content {
+  flex: 1;
+  padding: 2rem;
+  background-color: rgb(32, 47, 54);
+  color: white;
+  overflow: auto; /* Scroll vertical y horizontal si hace falta */
+  word-wrap: break-word;
+}

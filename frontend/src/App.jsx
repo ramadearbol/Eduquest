@@ -1,19 +1,22 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-
-import Navbar from './components/Navbar';
 import Login from './components/Login';
 import Register from './components/Register';
-
-import './styles/App.css'; // Usando carpeta styles
+import DashboardLayout from './pages/DashboardLayout';
+import Perfil from './pages/Perfil'; // Ruta para el perfil
 
 function App() {
   return (
     <Router>
       <Routes>
+        {/* Rutas sin Navbar */}
         <Route path="/" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/home" element={<Navbar />} />
+        
+        {/* Rutas con Navbar */}
+        <Route path="/home/*" element={<DashboardLayout />}>
+          <Route path="perfil" element={<Perfil />} />
+        </Route>
       </Routes>
     </Router>
   );

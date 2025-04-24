@@ -4,12 +4,6 @@
   box-sizing: border-box;
 }
 
-body, html {
-  height: 100%;
-  font-family: 'Poppins', sans-serif;
-  background-color: rgb(32, 47, 54);
-}
-
 .login-container {
   display: flex;
   justify-content: center;
