@@ -1,16 +1,39 @@
+/* Estilo del layout */
 .dashboard-layout {
   display: flex;
   height: 100vh;
   width: 100%;
   overflow: hidden;
+  flex-direction: row; /* Asegura que el navbar y contenido estén uno al lado del otro en pantallas grandes */
 }
 
+/* Estilo del contenido del dashboard */
 .dashboard-content {
   flex: 1;
   padding: 2rem;
   background-color: rgb(32, 47, 54);
   color: white;
-  overflow: auto; /* Scroll vertical y horizontal si hace falta */
+  overflow: auto; /* Habilita desplazamiento vertical y horizontal si hace falta */
   word-wrap: break-word;
+  transition: margin-left 0.3s ease;
 }
 
+/* Estilo responsive para cuando el navbar es fijo y horizontal en pantallas pequeñas */
+@media (max-width: 768px) {
+  /* Navbar en posición fija y horizontal, fuera del flujo normal del documento */
+  .navbar {
+    position: fixed;  /* Quitar el navbar del flujo */
+    top: 0;              /* Colocarlo arriba de la página */
+    left: 0;
+    width: 100%;
+    z-index: 1000;       /* Asegurarse de que quede encima del contenido */
+    border-bottom: 2px solid #4e4f53; /* Añadir borde en la parte inferior si es necesario */
+    padding: 1rem;
+  }
+
+  /* Ajustar el espacio del contenido para que no quede tapado por el navbar */
+  .dashboard-content {
+    margin-top: 80px; /* Este valor se ajusta según la altura de tu navbar */
+    overflow: auto; /* Habilitar desplazamiento si es necesario */
+  }
+}
