@@ -1,14 +1,18 @@
+/* Navbar */
 .navbar {
-  width: 375px;
-  height: 100vh;
+  width: 375px; /* Ancho fijo para pantallas grandes */
+  height: 100vh; /* Altura total */
   background-color: rgb(32, 47, 54);
   border-right: 2px solid #4e4f53;
   display: flex;
   flex-direction: column;
   padding: 2rem 1rem;
   box-sizing: border-box;
+  overflow-y: auto; /* Habilitar scroll vertical */
+  transition: all 0.3s ease; /* Animación suave */
 }
 
+/* Logo dentro del Navbar */
 .navbar-logo {
   font-size: 26px;
   font-weight: bold;
@@ -18,6 +22,7 @@
   flex-direction: column;
   align-items: center;
   text-transform: uppercase;
+  margin-bottom: 2rem; /* Espacio entre logo y enlaces */
 }
 
 .logo-img {
@@ -25,11 +30,15 @@
   height: 250px;
 }
 
+/* Lista de enlaces del navbar */
 .navbar-links {
   list-style: none;
   padding: 0;
   margin: 0;
   color: white;
+  display: flex; /* Por defecto en vertical */
+  flex-direction: column; /* Columna en pantallas grandes */
+  gap: 1rem;
 }
 
 .navbar-links li {
@@ -56,8 +65,9 @@
   object-fit: contain;
 }
 
+/* Contenedor de logout */
 .logout-container {
-  margin-top: auto; 
+  margin-top: auto;
 }
 
 .logout-container .navbar-links li {
@@ -67,4 +77,84 @@
 .logout-icon {
   width: 35px;
   height: 35px;
+}
+
+/* 🔥 Responsive para pantallas pequeñas */
+@media (max-width: 768px) {
+  /* Colocar navbar en la parte superior */
+  .navbar {
+    width: 100%; /* Ancho completo */
+    height: auto; /* Altura flexible */
+    max-height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 999;
+    flex-direction: column; /* Vertical en pantallas pequeñas */
+    padding: 1rem;
+    border-right: none;
+    border-bottom: 2px solid #4e4f53;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden; /* Ocultar scrollbars */
+  }
+
+  /* Desactivar el scrollbar para pantallas pequeñas, pero sigue siendo desplazable */
+  .navbar::-webkit-scrollbar {
+    display: none; /* Ocultar la barra de desplazamiento */
+  }
+  
+  /* Se mantiene el desplazamiento, pero sin ver el slider */
+  .navbar {
+    -ms-overflow-style: none;  /* Para IE */
+    scrollbar-width: none;  /* Para Firefox */
+  }
+
+  /* Estilo del logo */
+  .navbar-logo {
+    flex-direction: row;
+    font-size: 20px;
+    justify-content: center;
+  }
+
+  .logo-img {
+    width: 50px;
+    height: 50px;
+    margin-right: 10px;
+  }
+
+  /* Estilo de los links */
+  .navbar-links {
+    display: flex; /* Hacer que los enlaces se distribuyan en línea */
+    flex-direction: row; /* Colocar los enlaces en fila */
+    justify-content: space-around; /* Distribuir los enlaces */
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+
+  .navbar-links li {
+    padding: 0.5rem 0.8rem;
+    font-size: 16px;
+  }
+
+  /* Estilo del icono */
+  .icon {
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+  }
+
+  .logout-container {
+    margin-top: 1rem;
+  }
+
+  .logout-icon {
+    width: 25px;
+    height: 25px;
+  }
+
+  /* Cuando el navbar está abierto, mostrar los enlaces */
+  .navbar.open .navbar-links {
+    display: flex;
+  }
 }

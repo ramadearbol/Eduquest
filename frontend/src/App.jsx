@@ -4,6 +4,7 @@ import Login from './components/Login';
 import Register from './components/Register';
 import DashboardLayout from './pages/DashboardLayout';
 import Perfil from './pages/Perfil'; // Ruta para el perfil
+import Ranking from './pages/Ranking';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         {/* Rutas con Navbar */}
         <Route path="/home/*" element={<DashboardLayout />}>
           <Route path="perfil" element={<Perfil />} />
+          <Route path='ranking' element={<Ranking />} />
         </Route>
       </Routes>
     </Router>

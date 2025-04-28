@@ -22,6 +22,9 @@
   
   .perfil-photo {
     margin-bottom: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
   
   .perfil-img {
@@ -29,7 +32,7 @@
     height: 150px;
     border-radius: 50%;
     object-fit: cover;
-  }
+  }  
   
   .perfil-form {
     display: flex;
@@ -67,18 +70,21 @@
   
   .save-btn {
     margin-top: 2rem;
-    background-color: #32a852;
-    color: white;
+    background-color: #3498db; /* Azul clarito */
+    color: black; /* Texto negro */
     border: none;
     padding: 10px 20px;
     border-radius: 5px;
     cursor: pointer;
     font-size: 16px;
-    transition: background-color 0.3s;
+    font-weight: bold;
+    transition: background-color 0.3s, box-shadow 0.3s;
+    box-shadow: 0 4px 6px rgba(41, 128, 185, 0.6); /* Azul más oscuro como sombra */
   }
   
   .save-btn:hover {
-    background-color: #28a745;
+    background-color: #2980b9; /* Azul más oscuro al pasar el mouse */
+    box-shadow: 0 6px 8px rgba(41, 128, 185, 0.8);
   }
   
   .save-btn:focus {
@@ -86,6 +92,10 @@
   }
   
   .save-btn:disabled {
-    background-color: #ccc;
+    background-color: #919090;
+    color: white;
     cursor: not-allowed;
+    box-shadow: none;
+    font-weight: normal;
   }
+  

@@ -1,0 +1,41 @@
+.ranking-container {
+    padding: 2rem;
+    text-align: center;
+    color: white;
+  }
+  
+  .ranking-table {
+    width: 100%;
+    max-width: 800px;
+    margin: 2rem auto;
+    border-collapse: collapse;
+    background-color: #2c2f33;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  }
+  
+  .ranking-table th, 
+  .ranking-table td {
+    padding: 1rem;
+    border-bottom: 1px solid #444;
+  }
+  
+  .ranking-table th {
+    background-color: #3498db;
+    color: black;
+    font-size: 18px;
+  }
+  
+  .ranking-table td {
+    font-size: 16px;
+  }
+  
+  .ranking-table tr:nth-child(even) {
+    background-color: #3a3f44;
+  }
+  
+  .ranking-table tr:hover {
+    background-color: #4e5d6c;
+  }
+  

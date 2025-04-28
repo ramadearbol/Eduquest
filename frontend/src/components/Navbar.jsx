@@ -29,7 +29,7 @@ function Navbar() {
           <img src={iconoRetos} alt="Retos" className="icon" />
           Retos
         </li>
-        <li>
+        <li onClick={() => navigate("/home/ranking")}>
           <img src={iconoTrofeo} alt="Ranking" className="icon" />
           Ranking
         </li>
