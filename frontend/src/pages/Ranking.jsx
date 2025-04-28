@@ -1,5 +1,6 @@
 import React from "react";
 import "../styles/Ranking.css";
+import iconoLiga from '../assets/Liga.png';  // Asegúrate de tener esta imagen en la ruta indicada
 
 const jugadores = [
   { nombre: "JugadorUno", nivel: 12, puntuacion: 2500 },
@@ -10,9 +11,18 @@ const jugadores = [
 ];
 
 function Ranking() {
+  // Ordenar los jugadores por puntuación de mayor a menor
+  const jugadoresOrdenados = jugadores.sort((a, b) => b.puntuacion - a.puntuacion);
+
   return (
     <div className="ranking-container">
+      {/* Imagen de la liga arriba */}
+      <div className="liga-logo">
+        <img src={iconoLiga} alt="Liga" />
+      </div>
+
       <h1>Ranking de Jugadores</h1>
+      
       <table className="ranking-table">
         <thead>
           <tr>
@@ -23,7 +33,7 @@ function Ranking() {
           </tr>
         </thead>
         <tbody>
-          {jugadores.map((jugador, index) => (
+          {jugadoresOrdenados.map((jugador, index) => (
             <tr key={index}>
               <td>{index + 1}</td>
               <td>{jugador.nombre}</td>
