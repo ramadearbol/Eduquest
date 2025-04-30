@@ -80,9 +80,6 @@
   border: 2px solid gray;
   border-radius: 10px;
   background-color: transparent;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
 }
 
 .reto-daily-box {
@@ -91,8 +88,6 @@
   align-items: center;
   flex-wrap: wrap;
   gap: 1rem;
-  width: 100%;
-  box-sizing: border-box; /* Esto asegura que los elementos no se desborden */
 }
 
 /* VIDEO */
@@ -253,59 +248,57 @@
 }
 
 @media (max-width: 480px) {
-  .intro-box,
-  .contenido-retos,
-  .reto-daily-box,
-  .reto-daily-text,
-  .daily-container {
-    width: 100% !important;
-    max-width: 100%;
-    box-sizing: border-box;
-    display: flex;
+  .intro-box {
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    text-align: center;
+    padding: 1.5rem;
+  }
+
+  .intro-text {
+    padding-right: 0;
+    text-align: center;
+  }
+
+  .intro-text h1 {
+    font-size: 28px;
+  }
+
+  .intro-text p {
+    font-size: 16px;
+  }
+
+  .intro-image img {
+    margin-top: 1rem;
+    max-width: 100px;
+  }
+
+  .contenido-retos {
+    width: 90%;
   }
 
   .reto-daily-box {
     flex-direction: column;
     align-items: center;
-    padding: 1rem 0;
-    gap: 1rem;
-    width: 100%;
-  }
-
-  .reto-daily-video img {
-    width: 40px;
-    height: auto;
+    text-align: center;
   }
 
   .reto-daily-text {
-    padding: 0 1rem;
+    padding-right: 0;
   }
 
-  .reto-daily-text button {
-    width: 100%;
-    max-width: 250px;
-    font-size: 14px;
-    padding: 10px;
+  .reto-daily-text p {
+    font-size: 18px;
   }
 
   .progress-bar-background {
-    height: 26px;
+    height: 28px;
   }
 
   .progress-bar-background span {
-    font-size: 13px;
-    line-height: 26px;
+    font-size: 14px;
   }
 
-  .intro-image img {
-    max-width: 80px;
-  }
-  
-  /* Asegurando que el contenido no se desborde horizontalmente */
-  body {
-    overflow-x: hidden;
+  .reto-daily-text button {
+    font-size: 15px;
   }
 }
