@@ -80,6 +80,9 @@
   border: 2px solid gray;
   border-radius: 10px;
   background-color: transparent;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .reto-daily-box {
@@ -88,6 +91,8 @@
   align-items: center;
   flex-wrap: wrap;
   gap: 1rem;
+  width: 100%;
+  box-sizing: border-box; /* Esto asegura que los elementos no se desborden */
 }
 
 /* VIDEO */
@@ -258,7 +263,7 @@
     box-sizing: border-box;
     flex-direction: column;
     align-items: center;
-    text-align: center;  /* Esto aplica centrado solo en dispositivos móviles */
+    text-align: center;
   }
 
   .reto-daily-box {
@@ -266,6 +271,7 @@
     align-items: center;
     padding: 1rem 0;
     gap: 1rem;
+    width: 100%;
   }
 
   .reto-daily-video img {
