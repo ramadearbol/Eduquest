@@ -255,6 +255,7 @@
     box-sizing: border-box;
     flex-direction: column;
     align-items: center;
+    text-align: center;  /* Esto aplica centrado solo en dispositivos móviles */
   }
 
   .reto-daily-box {
@@ -272,7 +273,6 @@
 
   .reto-daily-text {
     padding: 0 1rem;
-    text-align: center;
   }
 
   .reto-daily-text button {
