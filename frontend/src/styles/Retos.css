@@ -51,6 +51,8 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 1rem;
+  flex-wrap: wrap;
+  gap: 1rem;
 }
 
 .daily-title {
@@ -82,6 +84,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
 }
 
 /* VIDEO */
@@ -97,12 +101,14 @@
   flex: 1;
   color: white;
   padding-right: 1rem;
+  min-width: 250px;
 }
 
 .reto-daily-text p {
   font-weight: bold;
   font-size: 20px;
   margin-bottom: 1rem;
+  word-break: break-word;
 }
 
 /* BARRA DE PROGRESO */
@@ -151,6 +157,9 @@
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  margin-top: 10px;
+  width: 100%;
+  max-width: 250px;
 }
 
 .reto-daily-text button:hover {
@@ -168,4 +177,104 @@
 .reto-completado p {
   font-size: 18px;
   font-weight: bold;
+}
+
+/* ---------- RESPONSIVE MEDIA QUERIES ---------- */
+
+@media (max-width: 1024px) {
+  .intro-box,
+  .contenido-retos {
+    width: 80%;
+  }
+}
+
+@media (max-width: 768px) {
+  .intro-box {
+    flex-direction: column;
+    text-align: center;
+    padding: 1.5rem;
+  }
+
+  .intro-text {
+    padding-right: 0;
+    text-align: center;
+  }
+
+  .intro-text h1 {
+    font-size: 28px;
+  }
+
+  .intro-text p {
+    font-size: 16px;
+  }
+
+  .intro-image img {
+    margin-top: 1rem;
+    max-width: 100px;
+  }
+
+  .contenido-retos {
+    width: 90%;
+  }
+
+  .reto-daily-box {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .reto-daily-text {
+    padding-right: 0;
+  }
+
+  .reto-daily-text p {
+    font-size: 18px;
+  }
+
+  .progress-bar-background {
+    height: 28px;
+  }
+
+  .progress-bar-background span {
+    font-size: 14px;
+  }
+
+  .reto-daily-text button {
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .intro-text h1 {
+    font-size: 22px;
+  }
+
+  .intro-text p {
+    font-size: 14px;
+  }
+
+  .daily-title {
+    font-size: 20px;
+  }
+
+  .hora-texto {
+    font-size: 16px;
+  }
+
+  .reto-daily-text p {
+    font-size: 16px;
+  }
+
+  .progress-bar-background {
+    height: 24px;
+  }
+
+  .progress-bar-background span {
+    font-size: 13px;
+  }
+
+  .reto-daily-text button {
+    font-size: 14px;
+    padding: 8px 16px;
+  }
 }
