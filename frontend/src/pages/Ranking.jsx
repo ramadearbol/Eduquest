@@ -1,11 +1,12 @@
 import React from "react";
 import "../styles/Ranking.css";
 import iconoLiga from '../assets/Liga.png';  // Asegúrate de tener esta imagen en la ruta indicada
+import iconoPerfil from '../assets/Perfil.png';
 
 const jugadores = [
   { nombre: "JugadorUno", nivel: 12, puntuacion: 2500 },
-  { nombre: "JugadorDos", nivel: 10, puntuacion: 2200 },
-  { nombre: "JugadorTres", nivel: 9, puntuacion: 2000 },
+  { nombre: "JugadorDos", nivel: 10, puntuacion: 1600 },
+  { nombre: "JugadorTres", nivel: 9, puntuacion: 1000 },
   { nombre: "JugadorCuatro", nivel: 8, puntuacion: 1800 },
   { nombre: "JugadorCinco", nivel: 7, puntuacion: 1500 },
 ];
@@ -36,7 +37,12 @@ function Ranking() {
           {jugadoresOrdenados.map((jugador, index) => (
             <tr key={index}>
               <td>{index + 1}</td>
-              <td>{jugador.nombre}</td>
+              <td>
+                <div className="usuario-container">
+                  <img src={iconoPerfil} alt="Perfil" className="perfil-icon" />
+                  {jugador.nombre}
+                </div>
+              </td>
               <td>{jugador.nivel}</td>
               <td>{jugador.puntuacion}</td>
             </tr>

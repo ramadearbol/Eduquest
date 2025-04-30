@@ -1,0 +1,118 @@
+/* Estilos generales para la página de retos */
+.retos-container {
+  padding: 2rem;
+  text-align: center;
+  color: white;
+}
+
+/* Estilo para el título de Desafío Diario */
+.daily-header {
+  display: flex;
+  justify-content: space-between; /* Título a la izquierda y reloj a la derecha */
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.daily-header h2 {
+  font-size: 24px;
+  color: #3498db;
+}
+
+.time-remaining {
+  display: flex;
+  align-items: center;
+  font-size: 18px;
+  color: yellow;
+}
+
+.time-remaining span {
+  margin-left: 10px;
+  font-weight: bold;
+}
+
+/* Contenedor para el desafío diario (sin fondo, solo borde) */
+.daily-container {
+  margin-bottom: 3rem;
+  padding: 1.5rem;
+  border: 2px solid #3498db;
+  border-radius: 10px;
+  width: 80%;
+  margin: 0 auto;
+}
+
+.reto {
+  background-color: transparent;
+  padding: 1rem;
+  border-radius: 8px;
+  width: 100%;
+  text-align: left;
+}
+
+.reto button {
+  background-color: #3498db;
+  color: white;
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.reto button:hover {
+  background-color: #2980b9;
+}
+
+/* Estilo cuando el desafío está completado */
+.reto-completado {
+  background-color: #3a3f44;
+  padding: 1rem;
+  border-radius: 8px;
+  color: #2ecc71;
+}
+
+.reto-completado p {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+/* Estilo para el progreso del desafío */
+.progress-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1rem;
+}
+
+.progress-container input[type="range"] {
+  width: 70%;
+}
+
+.progress-container span {
+  font-weight: bold;
+  color: yellow;
+  font-size: 16px;
+}
+
+/* Estilo de los desafíos semanales */
+.weekly-container {
+  margin-top: 2rem;
+}
+
+.weekly-container h2 {
+  font-size: 24px;
+  color: #3498db;
+}
+
+.reto {
+  margin-top: 1rem;
+  background-color: #3a3f44;
+  padding: 1rem;
+  border-radius: 10px;
+  width: 80%;
+  margin: 0 auto;
+}
+
+.reto button {
+  margin-top: 1rem;
+}

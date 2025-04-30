@@ -25,7 +25,7 @@ function Navbar() {
           <img src={iconoInicio} alt="Inicio" className="icon" />
           Inicio
         </li>
-        <li>
+        <li onClick={() => navigate("/home/retos")}>
           <img src={iconoRetos} alt="Retos" className="icon" />
           Retos
         </li>

@@ -5,6 +5,7 @@ import Register from './components/Register';
 import DashboardLayout from './pages/DashboardLayout';
 import Perfil from './pages/Perfil'; // Ruta para el perfil
 import Ranking from './pages/Ranking';
+import Retos from './pages/Retos';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route path="/home/*" element={<DashboardLayout />}>
           <Route path="perfil" element={<Perfil />} />
           <Route path='ranking' element={<Ranking />} />
+          <Route path='retos' element={<Retos />} />
         </Route>
       </Routes>
     </Router>

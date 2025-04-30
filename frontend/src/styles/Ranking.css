@@ -4,17 +4,17 @@
     text-align: center;
     color: white;
     overflow: auto;
-  }
-  
-  /* Imagen de la liga en la parte superior */
-  .liga-logo img {
+}
+
+/* Imagen de la liga en la parte superior */
+.liga-logo img {
     width: 300px; /* Tamaño de la imagen */
     height: auto;
     margin-bottom: 1rem; /* Espacio debajo de la imagen */
-  }
-  
-  /* Estilo de la tabla */
-  .ranking-table {
+}
+
+/* Estilo de la tabla */
+.ranking-table {
     width: 100%;
     max-width: 800px;
     margin: 2rem auto;
@@ -23,30 +23,47 @@
     border-radius: 10px;
     overflow: hidden;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-  }
-  
-  /* Estilo de las celdas de la tabla */
-  .ranking-table th, 
-  .ranking-table td {
+}
+
+/* Estilo de las celdas de la tabla */
+.ranking-table th, 
+.ranking-table td {
     padding: 1rem;
     border-bottom: 1px solid #444;
-  }
-  
-  .ranking-table th {
+    vertical-align: middle; /* Asegura que el contenido verticalmente esté centrado */
+}
+
+.ranking-table th {
     background-color: #3498db;
     color: black;
     font-size: 18px;
-  }
-  
-  .ranking-table td {
+}
+
+.ranking-table td {
     font-size: 16px;
-  }
-  
-  .ranking-table tr:nth-child(even) {
+}
+
+/* Estilo para las filas alternas */
+.ranking-table tr:nth-child(even) {
     background-color: #3a3f44;
-  }
-  
-  .ranking-table tr:hover {
+}
+
+/* Estilo al pasar el mouse sobre una fila */
+.ranking-table tr:hover {
     background-color: #4e5d6c;
-  }
-  
+}
+
+/* Nuevo estilo para alinear el icono y el nombre */
+.usuario-container {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Centra el contenido horizontalmente */
+    gap: 10px; /* Añade un espacio entre la imagen y el nombre */
+}
+
+.perfil-icon {
+    width: 30px;  /* Tamaño de la imagen del perfil */
+    height: 30px; /* Tamaño de la imagen del perfil */
+    border-radius: 50%;  /* Redondear la imagen */
+    object-fit: cover;  /* Ajustar la imagen sin distorsionar */
+}
