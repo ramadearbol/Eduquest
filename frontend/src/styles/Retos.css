@@ -245,51 +245,28 @@
 }
 
 @media (max-width: 480px) {
-  .intro-box,
-  .contenido-retos,
-  .reto-daily-box,
-  .reto-daily-text,
-  .daily-container {
-    width: 100% !important;
-    max-width: 100%;
-    box-sizing: border-box;
-  }
-
-  .reto-daily-box {
+  .intro-box, .reto-daily-box {
     flex-direction: column;
     align-items: center;
-    padding: 1rem 0;
-    gap: 1rem;
+    width: 100%;
   }
 
   .reto-daily-video img {
-    width: 60px;
-    height: auto;
-    margin-right: 0;
-  }
-
-  .reto-daily-text {
-    padding: 0 1rem;
-    text-align: center;
-  }
-
-  .reto-daily-text button {
-    width: 100%;
-    max-width: 220px;
-    font-size: 14px;
-    padding: 10px;
+    width: 60px; /* Reduzco el tamaño de la imagen para que no sobresalga */
   }
 
   .progress-bar-background {
     height: 26px;
   }
 
-  .progress-bar-background span {
-    font-size: 13px;
-    line-height: 26px;
+  .reto-daily-text button {
+    width: 90%;
+    font-size: 14px;
+    padding: 10px;
   }
 
-  .intro-image img {
-    max-width: 80px;
+  .daily-header {
+    flex-direction: column;
+    text-align: center;
   }
 }
