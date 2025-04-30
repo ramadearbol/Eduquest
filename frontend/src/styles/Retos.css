@@ -46,6 +46,30 @@
 }
 
 /* HEADER DEL DIARIO */
+.daily-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.daily-title {
+  font-size: 24px;
+}
+
+.time-remaining {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.hora-texto {
+  font-size: 20px;
+  color: #FFAB33;
+  font-weight: bold;
+}
+
+/* DESAFÍO */
 .daily-container {
   margin-bottom: 3rem;
   padding: 1.5rem;
@@ -60,7 +84,15 @@
   align-items: center;
 }
 
-/* TEXTO DEL DESAFÍO */
+/* VIDEO */
+.reto-daily-video img {
+  width: 80px;
+  height: auto;
+  border-radius: 10px;
+  margin-right: 20px;
+}
+
+/* TEXTO */
 .reto-daily-text {
   flex: 1;
   color: white;
@@ -73,17 +105,10 @@
   margin-bottom: 1rem;
 }
 
-/* VIDEO O GIF DEL DESAFÍO */
-.reto-daily-video img {
-  width: 80px;
-  height: auto;
-  border-radius: 10px;
-  margin-right: 20px;
-}
-
-/* BARRA DE PROGRESO PERSONALIZADA */
+/* BARRA DE PROGRESO */
 .progress-bar-wrapper {
   margin-bottom: 1rem;
+  position: relative;
 }
 
 .progress-bar-background {
@@ -98,19 +123,23 @@
 .progress-bar-fill {
   background-color: #4CAF50;
   height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 15px;
-  font-weight: bold;
-  color: white;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  border-radius: 12px;
   transition: width 0.4s ease-in-out;
 }
 
-.progress-bar-fill span {
-  color: white;
-  font-weight: bold;
+.progress-bar-background span {
+  position: relative;
+  z-index: 2;
+  display: block;
+  text-align: center;
+  line-height: 32px;
   font-size: 15px;
+  font-weight: bold;
+  color: white;
 }
 
 /* BOTÓN */
