@@ -21,9 +21,9 @@ function Navbar() {
         <img src={iconoLogo} alt="Logo EduQuest" className="logo-img" />
       </div>
       <ul className="navbar-links">
-        <li onClick={() => navigate("/home")}>
+        <li onClick={() => navigate("/home/aprender")}>
           <img src={iconoInicio} alt="Inicio" className="icon" />
-          Inicio
+          Aprender
         </li>
         <li onClick={() => navigate("/home/retos")}>
           <img src={iconoRetos} alt="Retos" className="icon" />

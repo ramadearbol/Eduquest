@@ -6,6 +6,7 @@ import DashboardLayout from './pages/DashboardLayout';
 import Perfil from './pages/Perfil'; // Ruta para el perfil
 import Ranking from './pages/Ranking';
 import Retos from './pages/Retos';
+import Aprender from './pages/Aprender';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           <Route path="perfil" element={<Perfil />} />
           <Route path='ranking' element={<Ranking />} />
           <Route path='retos' element={<Retos />} />
+          <Route path='aprender' element={<Aprender />} />
         </Route>
       </Routes>
     </Router>
