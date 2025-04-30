@@ -261,9 +261,10 @@
     width: 100% !important;
     max-width: 100%;
     box-sizing: border-box;
+    display: flex;
     flex-direction: column;
     align-items: center;
-    text-align: center;
+    justify-content: center;
   }
 
   .reto-daily-box {
@@ -275,9 +276,8 @@
   }
 
   .reto-daily-video img {
-    width: 60px;
+    width: 40px;
     height: auto;
-    margin-right: 0;
   }
 
   .reto-daily-text {
@@ -286,7 +286,7 @@
 
   .reto-daily-text button {
     width: 100%;
-    max-width: 220px;
+    max-width: 250px;
     font-size: 14px;
     padding: 10px;
   }
