@@ -245,36 +245,51 @@
 }
 
 @media (max-width: 480px) {
-  .intro-text h1 {
-    font-size: 22px;
+  .intro-box,
+  .contenido-retos,
+  .reto-daily-box,
+  .reto-daily-text,
+  .daily-container {
+    width: 100% !important;
+    max-width: 100%;
+    box-sizing: border-box;
   }
 
-  .intro-text p {
+  .reto-daily-box {
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem 0;
+    gap: 1rem;
+  }
+
+  .reto-daily-video img {
+    width: 60px;
+    height: auto;
+    margin-right: 0;
+  }
+
+  .reto-daily-text {
+    padding: 0 1rem;
+    text-align: center;
+  }
+
+  .reto-daily-text button {
+    width: 100%;
+    max-width: 220px;
     font-size: 14px;
-  }
-
-  .daily-title {
-    font-size: 20px;
-  }
-
-  .hora-texto {
-    font-size: 16px;
-  }
-
-  .reto-daily-text p {
-    font-size: 16px;
+    padding: 10px;
   }
 
   .progress-bar-background {
-    height: 24px;
+    height: 26px;
   }
 
   .progress-bar-background span {
     font-size: 13px;
+    line-height: 26px;
   }
 
-  .reto-daily-text button {
-    font-size: 14px;
-    padding: 8px 16px;
+  .intro-image img {
+    max-width: 80px;
   }
 }
