@@ -37,6 +37,8 @@
 
 .intro-image img {
   max-width: 140px;
+  width: 100%;
+  height: auto;
 }
 
 /* CONTENIDO CENTRAL */
@@ -160,6 +162,7 @@
   margin-top: 10px;
   width: 100%;
   max-width: 250px;
+  box-sizing: border-box; /* Para evitar desbordes */
 }
 
 .reto-daily-text button:hover {
@@ -293,5 +296,10 @@
 
   .intro-image img {
     max-width: 80px;
+  }
+  
+  /* Asegurando que el contenido no se desborde horizontalmente */
+  body {
+    overflow-x: hidden;
   }
 }

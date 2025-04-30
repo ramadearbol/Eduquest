@@ -79,7 +79,7 @@
   height: 35px;
 }
 
-/* 🔥 Responsive para pantallas pequeñas */
+/* Responsive para pantallas pequeñas */
 @media (max-width: 768px) {
   /* Colocar navbar en la parte superior */
   .navbar {
