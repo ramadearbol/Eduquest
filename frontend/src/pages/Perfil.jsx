@@ -5,13 +5,13 @@ import '../styles/Perfil.css';
 
 function Perfil() {
   // Estado para los campos
-  const [nombre, setNombre] = useState("UsuarioEjemplo");
-  const [correo, setCorreo] = useState("usuario@example.com");
+  const [nombre, setNombre] = useState("");
+  const [correo, setCorreo] = useState("");
   const [contraseñaActual, setContraseñaActual] = useState("");
   const [contraseñaNueva, setContraseñaNueva] = useState("");
   
-  const [nombreOriginal, setNombreOriginal] = useState("UsuarioEjemplo");
-  const [correoOriginal, setCorreoOriginal] = useState("usuario@example.com");
+  const [nombreOriginal, setNombreOriginal] = useState("");
+  const [correoOriginal, setCorreoOriginal] = useState("");
   const [contraseñaActualOriginal, setContraseñaActualOriginal] = useState("");
   const [contraseñaNuevaOriginal, setContraseñaNuevaOriginal] = useState("");
 
