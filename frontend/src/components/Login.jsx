@@ -7,7 +7,7 @@ function Login() {
   const navigate = useNavigate();
 
   const handleLogin = () => {
-    navigate("/home");
+    navigate("/home/aprender");
   };
 
   const goToRegister = () => {

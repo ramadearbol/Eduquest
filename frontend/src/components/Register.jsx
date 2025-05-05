@@ -7,7 +7,7 @@ function Register() {
   const navigate = useNavigate();
 
   const handleRegister = () => {
-    navigate("/home");
+    navigate("/home/aprender");
   };
 
   return (
