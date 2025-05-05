@@ -1,18 +1,19 @@
-/* Navbar */
+/* Navbar general */
 .navbar {
-  width: 375px; /* Ancho fijo para pantallas grandes */
-  height: 100vh; /* Altura total */
+  width: 375px;
+  height: 100vh;
   background-color: rgb(32, 47, 54);
   border-right: 2px solid #4e4f53;
   display: flex;
   flex-direction: column;
   padding: 2rem 1rem;
   box-sizing: border-box;
-  overflow-y: auto; /* Habilitar scroll vertical */
-  transition: all 0.3s ease; /* Animación suave */
+  overflow-y: auto;
+  overflow-x: hidden; /* Evita cortes horizontales */
+  transition: all 0.3s ease;
 }
 
-/* Logo dentro del Navbar */
+/* Logo */
 .navbar-logo {
   font-size: 26px;
   font-weight: bold;
@@ -22,22 +23,23 @@
   flex-direction: column;
   align-items: center;
   text-transform: uppercase;
-  margin-bottom: 2rem; /* Espacio entre logo y enlaces */
+  margin-bottom: 2rem;
 }
 
 .logo-img {
   width: 250px;
-  height: 250px;
+  height: auto;
+  max-width: 100%; /* Nunca sobresale */
 }
 
-/* Lista de enlaces del navbar */
+/* Enlaces */
 .navbar-links {
   list-style: none;
   padding: 0;
   margin: 0;
   color: white;
-  display: flex; /* Por defecto en vertical */
-  flex-direction: column; /* Columna en pantallas grandes */
+  display: flex;
+  flex-direction: column;
   gap: 1rem;
 }
 
@@ -63,9 +65,10 @@
   height: 45px;
   margin-right: 30px;
   object-fit: contain;
+  max-width: 100%; /* Evita desbordes */
 }
 
-/* Contenedor de logout */
+/* Logout */
 .logout-container {
   margin-top: auto;
 }
@@ -79,18 +82,17 @@
   height: 35px;
 }
 
-/* Responsive para pantallas pequeñas */
+/* Responsive */
 @media (max-width: 768px) {
-  /* Colocar navbar en la parte superior */
   .navbar {
-    width: 100%; /* Ancho completo */
-    height: auto; /* Altura flexible */
+    width: 100%;
+    height: auto;
     max-height: 100vh;
     position: fixed;
     top: 0;
     left: 0;
     z-index: 999;
-    flex-direction: column; /* Vertical en pantallas pequeñas */
+    flex-direction: column;
     padding: 1rem;
     border-right: none;
     border-bottom: 2px solid #4e4f53;
@@ -98,38 +100,39 @@
     align-items: center;
   }
 
-  /* Estilo del logo */
   .navbar-logo {
     flex-direction: row;
-    font-size: 20px;
+    font-size: 18px;
     justify-content: center;
   }
 
   .logo-img {
-    width: 200px;
-    height: 200px;
+    width: 120px; /* Más pequeño en móviles */
+    height: auto;
     margin-right: 10px;
   }
 
-  /* Estilo de los links */
   .navbar-links {
-    display: flex; /* Hacer que los enlaces se distribuyan en línea */
-    flex-direction: row; /* Colocar los enlaces en fila */
-    justify-content: space-around; /* Distribuir los enlaces */
-    gap: 1rem;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap; /* Permite que bajen de línea */
+    justify-content: center;
+    gap: 0.5rem;
     margin-top: 1rem;
+    width: 100%;
   }
 
   .navbar-links li {
-    padding: 0.5rem 0.8rem;
-    font-size: 16px;
+    padding: 0.4rem 0.6rem;
+    font-size: 14px;
+    flex: 1 1 auto;
+    justify-content: center;
   }
 
-  /* Estilo del icono */
   .icon {
-    width: 30px;
-    height: 30px;
-    margin-right: 10px;
+    width: 25px;
+    height: 25px;
+    margin-right: 8px;
   }
 
   .logout-container {
@@ -137,11 +140,10 @@
   }
 
   .logout-icon {
-    width: 25px;
-    height: 25px;
+    width: 20px;
+    height: 20px;
   }
 
-  /* Cuando el navbar está abierto, mostrar los enlaces */
   .navbar.open .navbar-links {
     display: flex;
   }
