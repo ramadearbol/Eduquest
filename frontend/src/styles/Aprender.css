@@ -16,13 +16,21 @@
     max-width: 600px;
     z-index: 999;
     background: linear-gradient(135deg, #c896f1, #c896f1);
-    padding: 1.5rem 2rem; /* Aumentamos el padding */
-    margin-top: 1.5rem; /* Reducido espacio arriba */
-    margin-left: 11rem;
-    border-radius: 12px 12px 12px 12px;
+    padding: 1.5rem 2rem;
+    margin-top: 1rem;
+    border-radius: 12px;
     box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.3);
+    margin-left: 11rem; /* Esto solo se aplicará en pantallas grandes */
 }
 
+/* Quitamos el margin-left en pantallas más pequeñas */
+@media (max-width: 1200px) {
+    .fixed-top {
+        margin-left: 0;
+    }
+}
+
+/* Estilo de intro-box */
 .intro-box {
     display: flex;
     justify-content: space-between;
@@ -49,6 +57,7 @@
     height: auto;
 }
 
+/* Estilo de la lista de mundos */
 .worlds-list {
     margin-top: 80px; /* Ajustado margen superior */
 }
@@ -88,13 +97,14 @@
     box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
 }
 
-
 .coming-soon {
     color: #aaa;
     font-style: italic;
     margin-top: 5rem;
     font-size: 5rem;
 }
+
+/* Divider de separación */
 .divider {
     border: none;
     height: 2px;
@@ -144,8 +154,8 @@
     color: #c896f1;
     border: none;
     font-size: 1.8rem;
-    border-radius: 8px; /* Cambié de círculo a rectángulo */
-    padding: 10px 20px; /* Asegura que las estrellas sean botones rectangulares */
+    border-radius: 8px;
+    padding: 10px 20px;
     cursor: pointer;
 }
 

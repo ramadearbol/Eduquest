@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import "../styles/Aprender.css";
 
 function Aprender() {
-  const [activeWorld, setActiveWorld] = useState('Mundo 1');
+  const [activeWorld, setActiveWorld] = useState('Sección 1');
   const [activeTitle, setActiveTitle] = useState('Programación Básica (Java)');
   const [showPopup, setShowPopup] = useState(false);
   const [popupWorld, setPopupWorld] = useState(null);
@@ -16,28 +16,40 @@ function Aprender() {
   ];
 
   useEffect(() => {
+    // Función debounce para evitar múltiples actualizaciones rápidas
+    const debounceTimeout = 300; // Tiempo en milisegundos para evitar cambios rápidos
+    let timeoutId;
+
     const observer = new IntersectionObserver(
       (entries) => {
-        const visible = entries.find(entry => entry.isIntersecting);
-        if (visible) {
-          const id = visible.target.getAttribute('data-id');
-          const title = worlds.find(world => world.id.toString() === id)?.name;
-          setActiveWorld(`Mundo ${id}`);
-          setActiveTitle(title);
-        }
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const id = entry.target.getAttribute('data-id');
+            const title = worlds.find(world => world.id.toString() === id)?.name;
+
+            // Aplazar la actualización de estado para prevenir cambios rápidos
+            clearTimeout(timeoutId);
+            timeoutId = setTimeout(() => {
+              setActiveWorld(`Sección ${id}`);
+              setActiveTitle(title);
+            }, debounceTimeout);
+          }
+        });
       },
-      { threshold: 0.5 }
+      { threshold: 0.5 } // Cambiar para que se active cuando 50% de la sección es visible
     );
 
     worldRefs.current.forEach((ref) => ref && observer.observe(ref));
+
     return () => {
       worldRefs.current.forEach((ref) => ref && observer.unobserve(ref));
+      clearTimeout(timeoutId); // Limpiar el timeout cuando el componente se desmonte
     };
   }, []);
 
   const handleMouseEnter = (id) => {
     const title = worlds.find(world => world.id === id)?.name;
-    setActiveWorld(`Mundo ${id}`);
+    setActiveWorld(`Sección ${id}`);
     setActiveTitle(title);
   };
 
@@ -85,7 +97,7 @@ function Aprender() {
       {showPopup && (
         <div className="popup-overlay" onClick={closePopup}>
           <div className="popup" onClick={(e) => e.stopPropagation()}>
-            <h3>Selecciona la dificultad</h3>
+            <h3>Selecciona La Dificultad</h3>
             <div className="stars">
               <button className="star-btn">⭐</button>
               <button className="star-btn">⭐⭐</button>

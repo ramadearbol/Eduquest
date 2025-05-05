@@ -6,11 +6,51 @@
     overflow: auto;
 }
 
-/* Imagen de la liga en la parte superior */
-.liga-logo img {
-    width: 300px; /* Tamaño de la imagen */
+/* Estilo de la intro-box */
+.intro-box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #2c3e50;
+    padding: 1.5rem;
+    border-radius: 10px;
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    width: 100%;
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    box-sizing: border-box;
+    flex-wrap: wrap;  /* Permite que los elementos bajen en pantallas pequeñas */
+}
+
+.intro-text {
+    flex: 1;
+    color: white;
+    text-align: left;
+}
+
+.intro-text h1 {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.intro-text p {
+    font-size: 1.2rem;
+    color: #ecf0f1;
+}
+
+.intro-image {
+    width: auto;
     height: auto;
-    margin-bottom: 1rem; /* Espacio debajo de la imagen */
+    margin-top: 1rem;
+}
+
+.intro-image img {
+    max-width: 100% !important;
+    width: 200px !important;
+    height: auto !important;
+    margin-left: 20px;
 }
 
 /* Estilo de la tabla */
@@ -30,7 +70,7 @@
 .ranking-table td {
     padding: 1rem;
     border-bottom: 1px solid #444;
-    vertical-align: middle; /* Asegura que el contenido verticalmente esté centrado */
+    vertical-align: middle;
 }
 
 .ranking-table th {
@@ -53,17 +93,77 @@
     background-color: #4e5d6c;
 }
 
-/* Nuevo estilo para alinear el icono y el nombre */
+/* Estilo para el usuario */
 .usuario-container {
     display: flex;
     align-items: center;
-    justify-content: center; /* Centra el contenido horizontalmente */
-    gap: 10px; /* Añade un espacio entre la imagen y el nombre */
+    justify-content: center;
+    gap: 10px;
 }
 
 .perfil-icon {
-    width: 30px;  /* Tamaño de la imagen del perfil */
-    height: 30px; /* Tamaño de la imagen del perfil */
-    border-radius: 50%;  /* Redondear la imagen */
-    object-fit: cover;  /* Ajustar la imagen sin distorsionar */
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+/* MEDIA QUERIES PARA RESPONSIVE */
+
+/* Tablets (pantallas medianas) */
+@media (max-width: 768px) {
+    .intro-box {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .intro-text {
+        text-align: center;
+    }
+
+    .intro-image img {
+        width: 180px !important;
+        margin-left: 0;
+    }
+
+    .ranking-table th,
+    .ranking-table td {
+        padding: 0.8rem;
+        font-size: 14px;
+    }
+}
+
+/* Móviles (pantallas pequeñas) */
+@media (max-width: 480px) {
+    .intro-text h1 {
+        font-size: 1.8rem;
+    }
+
+    .intro-text p {
+        font-size: 1rem;
+    }
+
+    .intro-image img {
+        width: 150px !important;
+    }
+
+    .ranking-table {
+        font-size: 12px;
+    }
+
+    .ranking-table th,
+    .ranking-table td {
+        padding: 0.6rem;
+    }
+
+    .usuario-container {
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .perfil-icon {
+        width: 25px;
+        height: 25px;
+    }
 }

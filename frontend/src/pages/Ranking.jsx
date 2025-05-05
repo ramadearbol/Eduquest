@@ -17,13 +17,17 @@ function Ranking() {
 
   return (
     <div className="ranking-container">
-      {/* Imagen de la liga arriba */}
-      <div className="liga-logo">
-        <img src={iconoLiga} alt="Liga" />
+      {/* Nueva intro box con ajustes */}
+      <div className="intro-box">
+        <div className="intro-text">
+          <h1>Ranking de Jugadores</h1>
+          <p>¡Compite con los mejores y sube al top del ranking!</p>
+        </div>
+        <div className="intro-image">
+          <img src={iconoLiga} alt="Liga" />
+        </div>
       </div>
 
-      <h1>Ranking de Jugadores</h1>
-      
       <table className="ranking-table">
         <thead>
           <tr>
