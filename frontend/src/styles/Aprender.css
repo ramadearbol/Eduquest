@@ -175,3 +175,23 @@
 .close-btn:hover {
     background: #e60000;
 }
+
+@media (max-width: 768px) {
+    .intro-box {
+        flex-direction: column;
+        text-align: center;
+    }
+    .intro-text h1 {
+        font-size: 20px;
+    }
+    .intro-text h2 {
+        font-size: 16px;
+    }
+    .intro-image img {
+        max-width: 40px;
+        margin-top: 1rem;
+    }
+    .coming-soon {
+        font-size: 2rem;
+    }
+}
