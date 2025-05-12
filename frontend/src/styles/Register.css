@@ -27,3 +27,16 @@
 .register-btn:hover {
   background-color: #28a745;
 }
+
+.nav-link {
+  color: #007bff; /* Azul estilo hipervínculo */
+  font-size: 14px;
+  text-align: center;
+  cursor: pointer;
+  text-decoration: underline;
+  transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+  color: #0056b3; /* Azul más oscuro al pasar el ratón */
+}
