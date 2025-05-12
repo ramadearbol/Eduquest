@@ -7,6 +7,7 @@ import Perfil from './pages/Perfil'; // Ruta para el perfil
 import Ranking from './pages/Ranking';
 import Retos from './pages/Retos';
 import Aprender from './pages/Aprender';
+import Actividad from './components/Actividad';
 
 function App() {
   return (
@@ -15,7 +16,8 @@ function App() {
         {/* Rutas sin Navbar */}
         <Route path="/" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        
+        <Route path="/home/actividad" element={<Actividad />} />
+
         {/* Rutas con Navbar */}
         <Route path="/home/*" element={<DashboardLayout />}>
           <Route path="perfil" element={<Perfil />} />

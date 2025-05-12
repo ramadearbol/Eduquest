@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import "../styles/Aprender.css";
 
 function Aprender() {
@@ -14,6 +15,17 @@ function Aprender() {
     { id: 3, name: 'Interfaces Gráficas (JavaFX)', image: '🖥️' },
     { id: 4, name: 'Algoritmos y Estructuras de Datos', image: '📊' },
   ];
+
+  const navigate = useNavigate();
+
+  const handleStarClick = (difficulty) => {
+    navigate('/home/actividad', {
+      state: {
+        world: popupWorld,
+        difficulty: difficulty
+      }
+    });
+  };
 
   useEffect(() => {
     // Función debounce para evitar múltiples actualizaciones rápidas
@@ -99,9 +111,9 @@ function Aprender() {
           <div className="popup" onClick={(e) => e.stopPropagation()}>
             <h3>Selecciona La Dificultad</h3>
             <div className="stars">
-              <button className="star-btn">⭐</button>
-              <button className="star-btn">⭐⭐</button>
-              <button className="star-btn">⭐⭐⭐</button>
+              <button className="star-btn" onClick={() => handleStarClick(1)}>⭐</button>
+              <button className="star-btn" onClick={() => handleStarClick(2)}>⭐⭐</button>
+              <button className="star-btn" onClick={() => handleStarClick(3)}>⭐⭐⭐</button>
             </div>
             <button className="close-btn" onClick={closePopup}>Cerrar</button>
           </div>
