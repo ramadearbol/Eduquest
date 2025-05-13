@@ -225,4 +225,51 @@
       padding: 0.7rem 1.3rem;
     }
   }
+
+  .resultado-popup {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(30, 30, 30, 0.95);
+    color: white;
+    padding: 2rem;
+    text-align: center;
+    z-index: 9999;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.4);
+  }
+  
+  .resultado-popup.correcto {
+    background-color: rgba(76, 175, 80, 0.95); /* verde */
+  }
+  
+  .resultado-popup.incorrecto {
+    background-color: rgba(244, 67, 54, 0.95); /* rojo */
+  }
+  
+  .resultado-popup h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  .resultado-popup p {
+    font-size: 1.2rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .continuar-btn {
+    background-color: white;
+    color: #222;
+    padding: 0.75rem 1.5rem;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+  
+  .continuar-btn:hover {
+    background-color: #eee;
+  }
   

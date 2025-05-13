@@ -26,12 +26,17 @@ function Actividad() {
   const [indiceActual, setIndiceActual] = useState(0);
   const [progresoColores, setProgresoColores] = useState([]);
   const [preguntas, setPreguntas] = useState([]);
+  
+  const [mostrarOverlay, setMostrarOverlay] = useState(false); // Estado para controlar la visibilidad del overlay
+  const [resultadoCorrecto, setResultadoCorrecto] = useState(false); // Estado para determinar si la respuesta es correcta
 
+  // Genera una pregunta aleatoria de la lista de componentes
   const generarPregunta = (index) => {
     const Componente = preguntasComponentes[Math.floor(Math.random() * preguntasComponentes.length)];
     return <Componente key={index} world={world} difficulty={difficulty} />;
   };
 
+  // Al cargar, genera las preguntas y las almacena
   useEffect(() => {
     if (!world || !difficulty) {
       navigate('/home/aprender');
@@ -42,6 +47,7 @@ function Actividad() {
     setPreguntas(preguntasIniciales);
   }, [world, difficulty, navigate]);
 
+  // Maneja el avance al siguiente paso
   const handleAvanzar = (resultado) => {
     setProgresoColores((prev) => [...prev, resultado]);
 
@@ -54,12 +60,17 @@ function Actividad() {
     }
   };
 
+  // Salta a la siguiente pregunta, marca como incorrecto
   const handleSkip = () => {
+    setResultadoCorrecto(false);
+    setMostrarOverlay(true); // Muestra el overlay de incorrecto
     handleAvanzar('fallo');
   };
 
+  // Marca siempre como correcto al presionar el botón "COMPROBAR"
   const handleCheck = () => {
-    // Asumimos que siempre es un acierto por ahora
+    setResultadoCorrecto(true);
+    setMostrarOverlay(true); // Muestra el overlay de correcto
     handleAvanzar('acierto');
   };
 
@@ -81,13 +92,23 @@ function Actividad() {
       </div>
 
       <div className="actividad-contenido">
-        {preguntas[indiceActual]}
+        {preguntas[indiceActual]} {/* Muestra la pregunta actual */}
       </div>
 
       <div className="actividad-footer">
         <button className="actividad-skip-btn" onClick={handleSkip}>SALTAR</button>
         <button className="actividad-btn" onClick={handleCheck}>COMPROBAR</button>
       </div>
+
+      {/* Overlay de resultado */}
+      {mostrarOverlay && (
+        <div className={`resultado-popup ${resultadoCorrecto ? 'correcto' : 'incorrecto'}`}>
+          <h3>{resultadoCorrecto ? '✅ ¡Correcto!' : '❌ Incorrecto'}</h3>
+          <button className="continuar-btn" onClick={() => setMostrarOverlay(false)}>
+            Continuar
+          </button>
+        </div>
+      )}
     </div>
   );
 }

@@ -1,35 +1,57 @@
 import React, { useState } from 'react';
+import '../styles/Pregunta.css';
 
-function PreguntaRelacionarConceptos({ world, difficulty }) {
+function PreguntaRelacionarConceptos({ world, difficulty, preguntaData }) {
+  // preguntaData esperado:
+  // {
+  //   pregunta: "Relaciona cada concepto con su definición:",
+  //   conceptos: ["Clase", "Método", "Variable"],
+  //   definiciones: {
+  //     Clase: "Define un tipo de objeto.",
+  //     Método: "Contiene instrucciones que se ejecutan.",
+  //     Variable: "Almacena datos."
+  //   }
+  // }
+
   const [respuestas, setRespuestas] = useState({});
-
-  const conceptos = ['Clase', 'Método', 'Variable'];
-  const definiciones = {
-    'Clase': 'Define un tipo de objeto.',
-    'Método': 'Contiene instrucciones que se ejecutan.',
-    'Variable': 'Almacena datos.'
+  const conceptos = preguntaData?.conceptos || ['Clase', 'Método', 'Variable'];
+  const definiciones = preguntaData?.definiciones || {
+    Clase: 'Define un tipo de objeto.',
+    Método: 'Contiene instrucciones que se ejecutan.',
+    Variable: 'Almacena datos.'
   };
 
   return (
-    <div>
-      <h3>Relaciona cada concepto con su definición:</h3>
-      <div className="opciones">
-        {conceptos.map((concepto) => (
-          <div key={concepto} style={{ marginBottom: '1rem' }}>
-            <strong>{concepto}:</strong>
-            <select
-              value={respuestas[concepto] || ''}
-              onChange={(e) =>
-                setRespuestas((prev) => ({ ...prev, [concepto]: e.target.value }))
-              }
-            >
-              <option value="">Selecciona definición</option>
-              {Object.values(definiciones).map((def, i) => (
-                <option key={i} value={def}>{def}</option>
-              ))}
-            </select>
-          </div>
-        ))}
+    <div className="pregunta-wrapper">
+      <div className="pregunta-box">
+        <h2 className="pregunta-titulo">Relacionar Conceptos</h2>
+        <p className="pregunta-contexto">
+          Mundo: <strong>{world?.name}</strong> · Dificultad: <strong>{difficulty} ⭐</strong>
+        </p>
+
+        <p className="pregunta-texto">{preguntaData?.pregunta || 'Relaciona cada concepto con su definición:'}</p>
+
+        <div className="relacionar-lista">
+          {conceptos.map((concepto, index) => (
+            <div key={index} className="relacion-item">
+              <label className="relacion-label">{concepto}</label>
+              <select
+                className="relacion-select"
+                value={respuestas[concepto] || ''}
+                onChange={(e) =>
+                  setRespuestas((prev) => ({ ...prev, [concepto]: e.target.value }))
+                }
+              >
+                <option value="">Selecciona definición</option>
+                {Object.values(definiciones).map((definicion, i) => (
+                  <option key={i} value={definicion}>
+                    {definicion}
+                  </option>
+                ))}
+              </select>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
