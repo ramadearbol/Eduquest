@@ -22,7 +22,7 @@ function Login() {
             <img src={logoEduQuest} alt="Logo EduQuest" className="logo-img" />
           </div>
           <div className="form-container">
-            <input type="text" placeholder="Usuario" className="input-field" />
+            <input type="text" placeholder="Correo electrónico" className="input-field" />
             <input type="password" placeholder="Contraseña" className="input-field" />
             <button className="login-btn" onClick={handleLogin}>Iniciar Sesión</button>
             <p className="nav-link" onClick={goToRegister}>¿No tienes cuenta? Regístrate</p>
