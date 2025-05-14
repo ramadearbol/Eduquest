@@ -53,6 +53,23 @@ function Ranking() {
           ))}
         </tbody>
       </table>
+
+      {/* Cuadro de progreso de jugador */}
+      <div className="jugador-progreso">
+        <img src={iconoPerfil} alt="Foto Jugador" className="jugador-foto" />
+        <div className="jugador-info">
+          <div className="jugador-detalles">
+            <p><strong>Jugador:</strong> JugadorUno</p>
+            <p><strong>Nivel:</strong> 12</p>
+            <p><strong>Experiencia:</strong> 4200 / 5000 XP</p>
+          </div>
+          <div className="barra-progreso">
+            <div className="barra-externa">
+              <div className="barra-interna" style={{ width: '84%' }}></div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
