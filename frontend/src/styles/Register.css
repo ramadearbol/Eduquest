@@ -40,3 +40,19 @@
 .nav-link:hover {
   color: #0056b3; /* Azul más oscuro al pasar el ratón */
 }
+
+.input-error {
+  border-color: red !important;
+  color: red;
+}
+
+.input-error::placeholder {
+  color: red;
+}
+
+.error-msg {
+  color: red;
+  font-size: 14px;
+  margin-bottom: 10px;
+  text-align: center;
+}
