@@ -1,8 +1,5 @@
 package com.eduquest.backend.security;
 
-import com.eduquest.security.JwtAuthenticationFilter;
-import com.eduquest.security.JwtAuthenticationEntryPoint;
-import com.eduquest.security.OAuth2LoginSuccessHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -41,9 +38,10 @@ public class SecurityConfig {
                 .anyRequest().authenticated()
             )
             .oauth2Login()
-                .successHandler(oAuth2LoginSuccessHandler); // Genera JWT al loguearse con Google/MS
+                .successHandler(oAuth2LoginSuccessHandler);
 
         http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+
         return http.build();
     }
 
