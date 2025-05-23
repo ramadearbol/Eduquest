@@ -5,14 +5,18 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import java.time.LocalDate;
+import java.util.UUID;
+
+import org.hibernate.annotations.GenerationTime;
 
 @Entity
-@Table(name = "Usuarios")
+@Table(name = "usuarios")
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id_usuario", columnDefinition = "uuid", updatable = false, nullable = false)
+    private UUID id_usuario;
 
     @NotBlank(message = "El nombre de usuario no puede estar vacío")
     @Size(max = 50, message = "El nombre de usuario debe tener máximo 50 caracteres")
@@ -37,12 +41,12 @@ public class User {
 
     // Getters y setters
 
-    public Long getId() {
-        return id;
+    public UUID getId() {
+        return id_usuario;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setId(UUID id_usuario) {
+        this.id_usuario = id_usuario;
     }
 
     public String getUsername() {

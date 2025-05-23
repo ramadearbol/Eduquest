@@ -11,6 +11,7 @@ function Login() {
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [serverError, setServerError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const validateFields = () => {
     let valid = true;
@@ -20,6 +21,9 @@ function Login() {
 
     if (!email) {
       setEmailError("El correo electrónico es obligatorio");
+      valid = false;
+    } else if (!/\S+@\S+\.\S+/.test(email)) {
+      setEmailError("Correo electrónico inválido");
       valid = false;
     }
 
@@ -34,8 +38,9 @@ function Login() {
   const handleLogin = async () => {
     if (!validateFields()) return;
 
+    setLoading(true);
     try {
-      const response = await fetch("http://localhost:8080/auth/login", {
+      const response = await fetch("http://localhost:8082/auth/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -55,6 +60,8 @@ function Login() {
     } catch (error) {
       console.error("Login error:", error);
       setServerError("Error de conexión al servidor");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -71,7 +78,7 @@ function Login() {
           </div>
           <div className="form-container">
             <input
-              type="text"
+              type="email"
               placeholder={emailError ? emailError : "Correo electrónico"}
               className={`input-field ${emailError ? "input-error" : ""}`}
               value={email}
@@ -87,8 +94,8 @@ function Login() {
               onFocus={() => setPasswordError("")}
             />
             {serverError && <p className="error-msg">{serverError}</p>}
-            <button className="login-btn" onClick={handleLogin}>
-              Iniciar Sesión
+            <button className="login-btn" onClick={handleLogin} disabled={loading}>
+              {loading ? "Cargando..." : "Iniciar Sesión"}
             </button>
             <p className="nav-link" onClick={goToRegister}>
               ¿No tienes cuenta? Regístrate

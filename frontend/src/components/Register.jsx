@@ -50,10 +50,10 @@ function Register() {
     if (!validateFields()) return;
 
     try {
-      const response = await fetch("http://localhost:8080/auth/register", {
+      const response = await fetch("http://localhost:8082/auth/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ username, email, password }),
+        body: JSON.stringify({email, username, password }),
       });
 
       if (!response.ok) {

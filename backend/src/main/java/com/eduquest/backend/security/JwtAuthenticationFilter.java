@@ -24,6 +24,14 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
 
+                String path = request.getRequestURI();
+
+                // Excluir rutas públicas de la validación JWT
+                if (path.startsWith("/auth/") || path.startsWith("/oauth2/")) {
+                    filterChain.doFilter(request, response);
+                    return;
+                }
+
         final String token = jwtTokenUtil.getTokenFromRequest(request);
 
         if (token != null && jwtTokenUtil.validateToken(token)) {
