@@ -126,4 +126,12 @@
     font-size: 14px;  /* Ajusta el tamaño del botón */
     padding: 8px 16px;  /* Ajusta el padding del botón */
   }
+
+  .error-message {
+    color: red;
+    margin-top: 10px;
+    text-align: center;
+    font-weight: bold;
+  }
+
 }

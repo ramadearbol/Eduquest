@@ -34,9 +34,6 @@ public class User {
     @Column(name = "fecha_registro", updatable = false, insertable = false)
     private LocalDate fechaRegistro;
 
-    @Column(name = "imagen_usuario")
-    private String imagenUsuario;
-
     public User() {}
 
     // Getters y setters
@@ -79,13 +76,5 @@ public class User {
 
     public void setFechaRegistro(LocalDate fechaRegistro) {
         this.fechaRegistro = fechaRegistro;
-    }
-
-    public String getImagenUsuario() {
-        return imagenUsuario;
-    }
-
-    public void setImagenUsuario(String imagenUsuario) {
-        this.imagenUsuario = imagenUsuario;
     }
 }

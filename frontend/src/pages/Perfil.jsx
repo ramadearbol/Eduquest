@@ -1,130 +1,154 @@
-// src/pages/Perfil.jsx
 import React, { useState, useEffect } from "react";
-import iconoPerfil from "../assets/Perfil.png"; // Asegúrate de que esta imagen esté bien ubicada.
+import iconoPerfil from "../assets/Perfil.png";
 import '../styles/Perfil.css';
 
 function Perfil() {
-  // Estado para los campos
   const [nombre, setNombre] = useState("");
   const [correo, setCorreo] = useState("");
   const [contraseñaActual, setContraseñaActual] = useState("");
   const [contraseñaNueva, setContraseñaNueva] = useState("");
-  
   const [nombreOriginal, setNombreOriginal] = useState("");
-  const [correoOriginal, setCorreoOriginal] = useState("");
-  const [contraseñaActualOriginal, setContraseñaActualOriginal] = useState("");
-  const [contraseñaNuevaOriginal, setContraseñaNuevaOriginal] = useState("");
-
   const [changesMade, setChangesMade] = useState(false);
+  const [errorMsg, setErrorMsg] = useState("");
 
-  // Comprobar si los cambios se han realizado
   useEffect(() => {
-    // Compara los valores actuales con los valores originales
+    const token = localStorage.getItem("token");
+
+    fetch("http://localhost:8082/api/user/me", {
+      method: "GET",
+      headers: {
+        "Authorization": `Bearer ${token}`
+      }
+    })
+      .then(res => {
+        if (!res.ok) throw new Error("Error al cargar el perfil");
+        return res.json();
+      })
+      .then(data => {
+        setNombre(data.username);
+        setCorreo(data.email);
+        setNombreOriginal(data.username);
+      })
+      .catch(err => {
+        console.error(err);
+        setErrorMsg("Sesión expirada o no autorizada");
+      });
+  }, []);
+
+  useEffect(() => {
     if (
       nombre !== nombreOriginal ||
-      correo !== correoOriginal ||
-      contraseñaActual !== contraseñaActualOriginal ||
-      contraseñaNueva !== contraseñaNuevaOriginal
+      contraseñaActual ||
+      contraseñaNueva
     ) {
       setChangesMade(true);
     } else {
       setChangesMade(false);
     }
-  }, [nombre, correo, contraseñaActual, contraseñaNueva, nombreOriginal, correoOriginal, contraseñaActualOriginal, contraseñaNuevaOriginal]);
+  }, [nombre, contraseñaActual, contraseñaNueva, nombreOriginal]);
 
-  // Función para manejar los cambios en los inputs
-  const handleInputChange = () => {
-    // Verifica si se realiza algún cambio en los campos
-    setChangesMade(true);
-  };
-
-  // Función para guardar los cambios
   const handleGuardarCambios = () => {
-    // Lógica para guardar los cambios (por ejemplo, enviarlo a la base de datos)
-    setNombreOriginal(nombre);
-    setCorreoOriginal(correo);
-    setContraseñaActualOriginal(contraseñaActual);
-    setContraseñaNuevaOriginal(contraseñaNueva);
-    console.log("Cambios guardados");
+    setErrorMsg("");
 
-    setChangesMade(false); // Desactiva el botón después de guardar
+    if ((contraseñaNueva && !contraseñaActual) || (!contraseñaNueva && contraseñaActual)) {
+      setErrorMsg("Debe completar ambos campos de contraseña para cambiarla");
+      return;
+    }
+
+    const token = localStorage.getItem("token");
+
+    const payload = {
+      username: nombre,
+      password: contraseñaNueva || null
+    };
+
+    const url = `http://localhost:8082/api/user/me${contraseñaNueva ? `?oldPassword=${encodeURIComponent(contraseñaActual)}` : ""}`;
+
+    fetch(url, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
+      },
+      body: JSON.stringify(payload)
+    })
+      .then(res => {
+        if (!res.ok) return res.json().then(data => { throw new Error(data.message || "Error al actualizar el perfil"); });
+        return res.json();
+      })
+      .then(data => {
+        setNombreOriginal(data.username);
+        setContraseñaActual("");
+        setContraseñaNueva("");
+        setChangesMade(false);
+      })
+      .catch(err => {
+        console.error(err);
+        setErrorMsg(err.message);
+      });
   };
 
   return (
     <div className="perfil-container">
       <div className="perfil-card">
-        {/* Foto de perfil */}
         <div className="perfil-photo">
           <img src={iconoPerfil} alt="Foto de perfil" className="perfil-img" />
         </div>
-
-        {/* Formulario de edición */}
         <div className="perfil-form">
-          {/* Nombre */}
           <div className="form-group">
             <label htmlFor="nombre">Nombre</label>
             <input
               type="text"
               id="nombre"
               value={nombre}
-              onChange={(e) => {
-                setNombre(e.target.value);
-                handleInputChange();
-              }}
+              onChange={(e) => setNombre(e.target.value)}
               className="form-input"
             />
           </div>
 
-          {/* Correo */}
           <div className="form-group">
             <label htmlFor="correo">Correo</label>
             <input
               type="email"
               id="correo"
               value={correo}
-              onChange={(e) => {
-                setCorreo(e.target.value);
-                handleInputChange();
-              }}
+              disabled
               className="form-input"
             />
           </div>
 
-          {/* Contraseña actual */}
           <div className="form-group">
             <label htmlFor="contraseñaActual">Contraseña Actual</label>
             <input
               type="password"
               id="contraseñaActual"
               value={contraseñaActual}
-              onChange={(e) => {
-                setContraseñaActual(e.target.value);
-                handleInputChange();
-              }}
+              onChange={(e) => setContraseñaActual(e.target.value)}
               className="form-input"
             />
           </div>
 
-          {/* Contraseña nueva */}
           <div className="form-group">
             <label htmlFor="contraseñaNueva">Contraseña Nueva</label>
             <input
               type="password"
               id="contraseñaNueva"
               value={contraseñaNueva}
-              onChange={(e) => {
-                setContraseñaNueva(e.target.value);
-                handleInputChange();
-              }}
+              onChange={(e) => setContraseñaNueva(e.target.value)}
               className="form-input"
             />
           </div>
 
-          {/* Botón guardar cambios */}
+          {errorMsg && (
+            <div className="error-message">
+              {errorMsg}
+            </div>
+          )}
+
           <button
             onClick={handleGuardarCambios}
             className="save-btn"
-            disabled={!changesMade} // El botón solo está habilitado si hay cambios
+            disabled={!changesMade}
           >
             Guardar Cambios
           </button>
