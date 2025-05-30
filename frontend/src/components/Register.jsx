@@ -50,10 +50,11 @@ function Register() {
     if (!validateFields()) return;
 
     try {
+      // Paso 1: Registrar el usuario
       const response = await fetch("http://localhost:8082/auth/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({email, username, password }),
+        body: JSON.stringify({ email, username, password }),
       });
 
       if (!response.ok) {
@@ -62,7 +63,23 @@ function Register() {
         return;
       }
 
-      // Si todo ok, redirigir a /home/aprender
+      // Paso 2: Login automático después del registro
+      const loginRes = await fetch("http://localhost:8082/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      });
+
+      if (!loginRes.ok) {
+        const loginData = await loginRes.json();
+        setServerError(loginData.message || "Error al iniciar sesión automáticamente");
+        return;
+      }
+
+      const loginData = await loginRes.json();
+      localStorage.setItem("token", loginData.token); // Guarda el token JWT
+
+      // Redirigir al dashboard
       navigate("/home/aprender");
     } catch (error) {
       console.error("Register error:", error);
@@ -83,7 +100,7 @@ function Register() {
         <div className="form-container">
           <input
             type="email"
-            placeholder={emailError ? emailError : "Correo electrónico"}
+            placeholder={emailError || "Correo electrónico"}
             className={`input-field ${emailError ? "input-error" : ""}`}
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -91,7 +108,7 @@ function Register() {
           />
           <input
             type="text"
-            placeholder={usernameError ? usernameError : "Usuario"}
+            placeholder={usernameError || "Usuario"}
             className={`input-field ${usernameError ? "input-error" : ""}`}
             value={username}
             onChange={(e) => setUsername(e.target.value)}
@@ -99,7 +116,7 @@ function Register() {
           />
           <input
             type="password"
-            placeholder={passwordError ? passwordError : "Contraseña"}
+            placeholder={passwordError || "Contraseña"}
             className={`input-field ${passwordError ? "input-error" : ""}`}
             value={password}
             onChange={(e) => setPassword(e.target.value)}

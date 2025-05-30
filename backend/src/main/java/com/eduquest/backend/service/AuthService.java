@@ -30,7 +30,7 @@ public class AuthService {
         user.setPassword(passwordEncoder.encode(rawPassword));
         userRepository.save(user);
 
-        return jwtTokenUtil.generateToken(email);
+        return jwtTokenUtil.generateToken(user.getEmail(), user.getId());
     }
 
     public String login(String email, String rawPassword) {
@@ -41,6 +41,6 @@ public class AuthService {
             throw new RuntimeException("Contraseña incorrecta.");
         }
 
-        return jwtTokenUtil.generateToken(email);
+        return jwtTokenUtil.generateToken(user.getEmail(), user.getId());
     }
 }

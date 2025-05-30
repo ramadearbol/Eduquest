@@ -1,23 +1,62 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "../styles/Ranking.css";
-import iconoLiga from '../assets/Liga.png';  // Asegúrate de tener esta imagen en la ruta indicada
+import iconoLiga from '../assets/Liga.png';
 import iconoPerfil from '../assets/Perfil.png';
 
-const jugadores = [
-  { nombre: "JugadorUno", nivel: 12, puntuacion: 2500 },
-  { nombre: "JugadorDos", nivel: 10, puntuacion: 1600 },
-  { nombre: "JugadorTres", nivel: 9, puntuacion: 1000 },
-  { nombre: "JugadorCuatro", nivel: 8, puntuacion: 1800 },
-  { nombre: "JugadorCinco", nivel: 7, puntuacion: 1500 },
-];
-
 function Ranking() {
-  // Ordenar los jugadores por puntuación de mayor a menor
-  const jugadoresOrdenados = jugadores.sort((a, b) => b.puntuacion - a.puntuacion);
+  const [jugadores, setJugadores] = useState([]);
+  const [miRanking, setMiRanking] = useState(null);
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+
+    const fetchRanking = async () => {
+      try {
+        const response = await fetch("http://localhost:8082/api/ranking", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        if (!response.ok) throw new Error("Error al obtener el ranking");
+
+        const data = await response.json();
+        const ordenados = data.sort((a, b) => a.posicion - b.posicion);
+        setJugadores(ordenados);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    const fetchMiRanking = async () => {
+      try {
+        const response = await fetch("http://localhost:8082/api/ranking/me", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        if (!response.ok) throw new Error("Error al obtener mi ranking");
+
+        const data = await response.json();
+        setMiRanking(data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchRanking();
+    fetchMiRanking();
+  }, []);
+
+  const calcularProgresoXP = () => {
+    if (!miRanking) return 0;
+    const progreso = (miRanking.xp_total / miRanking.xp_para_siguiente_nivel) * 100;
+    return progreso > 100 ? 100 : progreso;
+  };
 
   return (
     <div className="ranking-container">
-      {/* Nueva intro box con ajustes */}
       <div className="intro-box">
         <div className="intro-text">
           <h1>Ranking de Jugadores</h1>
@@ -38,38 +77,44 @@ function Ranking() {
           </tr>
         </thead>
         <tbody>
-          {jugadoresOrdenados.map((jugador, index) => (
-            <tr key={index}>
-              <td>{index + 1}</td>
+          {jugadores.map((jugador) => (
+            <tr key={jugador.id_usuario}>
+              <td>{jugador.posicion}</td>
               <td>
                 <div className="usuario-container">
                   <img src={iconoPerfil} alt="Perfil" className="perfil-icon" />
-                  {jugador.nombre}
+                  {jugador.username}
                 </div>
               </td>
               <td>{jugador.nivel}</td>
-              <td>{jugador.puntuacion}</td>
+              <td>{jugador.xp_total}</td>
             </tr>
           ))}
         </tbody>
       </table>
 
-      {/* Cuadro de progreso de jugador */}
-      <div className="jugador-progreso">
-        <img src={iconoPerfil} alt="Foto Jugador" className="jugador-foto" />
-        <div className="jugador-info">
-          <div className="jugador-detalles">
-            <p><strong>Jugador:</strong> JugadorUno</p>
-            <p><strong>Nivel:</strong> 12</p>
-            <p><strong>Experiencia:</strong> 4200 / 5000 XP</p>
-          </div>
-          <div className="barra-progreso">
-            <div className="barra-externa">
-              <div className="barra-interna" style={{ width: '84%' }}></div>
+      {miRanking && (
+        <div className="jugador-progreso">
+          <img src={iconoPerfil} alt="Foto Jugador" className="jugador-foto" />
+          <div className="jugador-info">
+            <div className="jugador-detalles">
+              <p><strong>Jugador:</strong> {miRanking.username}</p>
+              <p><strong>Nivel:</strong> {miRanking.nivel}</p>
+              <p>
+                <strong>Experiencia:</strong> {miRanking.xp_total} / {miRanking.xp_para_siguiente_nivel} XP
+              </p>
+            </div>
+            <div className="barra-progreso">
+              <div className="barra-externa">
+                <div
+                  className="barra-interna"
+                  style={{ width: `${calcularProgresoXP()}%` }}
+                ></div>
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }

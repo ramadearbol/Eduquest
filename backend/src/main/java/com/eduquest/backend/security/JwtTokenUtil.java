@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
 import java.util.Date;
+import java.util.UUID;
 
 @Component
 public class JwtTokenUtil {
@@ -25,13 +26,14 @@ public class JwtTokenUtil {
     }
 
     // Genera el JWT a partir de un nombre de usuario
-    public String generateToken(String username) {
-        return Jwts.builder()
-                .setSubject(username)
-                .setIssuedAt(new Date())
-                .setExpiration(new Date(System.currentTimeMillis() + expirationTime))
-                .signWith(getSigningKey(), SignatureAlgorithm.HS512)
-                .compact();
+    public String generateToken(String email, UUID idUsuario) {
+    return Jwts.builder()
+            .setSubject(email)
+            .claim("id_usuario", idUsuario.toString())
+            .setIssuedAt(new Date())
+            .setExpiration(new Date(System.currentTimeMillis() + expirationTime))
+            .signWith(getSigningKey(), SignatureAlgorithm.HS512)
+            .compact();
     }
 
     // Obtiene el nombre de usuario a partir del JWT
@@ -65,4 +67,6 @@ public class JwtTokenUtil {
         }
         return null;
     }
+
+    
 }
