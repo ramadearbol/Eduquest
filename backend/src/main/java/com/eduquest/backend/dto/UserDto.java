@@ -1,9 +1,13 @@
 package com.eduquest.backend.dto;
 
+import java.util.UUID;
+
 public class UserDto {
     private String username; // solo para registro
     private String email;
     private String password;
+    private UUID idUsuario;
+
 
     public UserDto() {}
 
@@ -31,5 +35,13 @@ public class UserDto {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public UUID getIdUsuario() {
+        return idUsuario;
+    }
+
+    public void setIdUsuario(UUID idUsuario) {
+        this.idUsuario = idUsuario;
     }
 }

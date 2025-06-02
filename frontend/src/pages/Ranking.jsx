@@ -73,7 +73,7 @@ function Ranking() {
             <th>Posición</th>
             <th>Usuario</th>
             <th>Nivel</th>
-            <th>Puntuación</th>
+            <th>Experiencia</th>
           </tr>
         </thead>
         <tbody>
