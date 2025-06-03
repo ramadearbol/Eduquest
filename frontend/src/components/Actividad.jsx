@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import '../styles/Actividad.css';
 
 import PreguntaDefinicion from '../pages/PreguntaDefinicion';
 import PreguntaOpcionMultiple from '../pages/PreguntaOpcionMultiple';
-import PreguntaVerdaderoFalso from '../pages/PregunatVerdaderoFalso';
+import PreguntaVerdaderoFalso from '../pages/PreguntaVerdaderoFalso';
 import PreguntaCompletarCodigo from '../pages/PreguntarCompletarCodigo';
 import PreguntaRelacionarConceptos from '../pages/PreguntarRelacionarConceptos';
 
@@ -25,29 +25,25 @@ function Actividad() {
 
   const [indiceActual, setIndiceActual] = useState(0);
   const [progresoColores, setProgresoColores] = useState([]);
-  const [preguntas, setPreguntas] = useState([]);
-  
-  const [mostrarOverlay, setMostrarOverlay] = useState(false); // Estado para controlar la visibilidad del overlay
-  const [resultadoCorrecto, setResultadoCorrecto] = useState(false); // Estado para determinar si la respuesta es correcta
+  const [mostrarOverlay, setMostrarOverlay] = useState(false);
+  const [resultadoCorrecto, setResultadoCorrecto] = useState(false);
+  const [mensajeError, setMensajeError] = useState(null);
 
-  // Genera una pregunta aleatoria de la lista de componentes
-  const generarPregunta = (index) => {
-    const Componente = preguntasComponentes[Math.floor(Math.random() * preguntasComponentes.length)];
-    return <Componente key={index} world={world} difficulty={difficulty} />;
-  };
+  const preguntaRef = useRef();
+  const [PreguntaActual, setPreguntaActual] = useState(null);
 
-  // Al cargar, genera las preguntas y las almacena
   useEffect(() => {
     if (!world || !difficulty) {
       navigate('/home/aprender');
       return;
     }
-
-    const preguntasIniciales = Array.from({ length: MAX_PREGUNTAS }, (_, i) => generarPregunta(i));
-    setPreguntas(preguntasIniciales);
   }, [world, difficulty, navigate]);
 
-  // Maneja el avance al siguiente paso
+  useEffect(() => {
+    const Componente = preguntasComponentes[Math.floor(Math.random() * preguntasComponentes.length)];
+    setPreguntaActual(() => Componente);
+  }, [indiceActual]);
+
   const handleAvanzar = (resultado) => {
     setProgresoColores((prev) => [...prev, resultado]);
 
@@ -60,25 +56,28 @@ function Actividad() {
     }
   };
 
-  // Salta a la siguiente pregunta, marca como incorrecto
   const handleSkip = () => {
     setResultadoCorrecto(false);
-    setMostrarOverlay(true); // Muestra el overlay de incorrecto
-    handleAvanzar('fallo');
+    setMostrarOverlay(true);
   };
 
-  // Marca siempre como correcto al presionar el botón "COMPROBAR"
   const handleCheck = () => {
-    setResultadoCorrecto(true);
-    setMostrarOverlay(true); // Muestra el overlay de correcto
-    handleAvanzar('acierto');
+    if (!preguntaRef.current) return;
+
+    const esCorrecto = preguntaRef.current.validarRespuesta();
+    if (esCorrecto === null) {
+      setMensajeError('Por favor, selecciona una respuesta antes de comprobar.');
+      return;
+    }
+
+    setResultadoCorrecto(esCorrecto);
+    setMostrarOverlay(true);
   };
 
   return (
     <div className="actividad-wrapper">
       <div className="actividad-header">
         <button className="actividad-close-btn" onClick={() => navigate('/home/aprender')}>✕</button>
-
         <div className="actividad-progreso-barra">
           {Array.from({ length: MAX_PREGUNTAS }).map((_, i) => (
             <div
@@ -92,7 +91,16 @@ function Actividad() {
       </div>
 
       <div className="actividad-contenido">
-        {preguntas[indiceActual]} {/* Muestra la pregunta actual */}
+        {PreguntaActual ? (
+          <PreguntaActual
+            key={indiceActual} // ✅ Esto fuerza que el componente se remonte
+            world={world}
+            difficulty={difficulty}
+            ref={preguntaRef}
+          />
+        ) : (
+          <p>Cargando pregunta...</p>
+        )}
       </div>
 
       <div className="actividad-footer">
@@ -100,12 +108,26 @@ function Actividad() {
         <button className="actividad-btn" onClick={handleCheck}>COMPROBAR</button>
       </div>
 
-      {/* Overlay de resultado */}
       {mostrarOverlay && (
         <div className={`resultado-popup ${resultadoCorrecto ? 'correcto' : 'incorrecto'}`}>
           <h3>{resultadoCorrecto ? '✅ ¡Correcto!' : '❌ Incorrecto'}</h3>
-          <button className="continuar-btn" onClick={() => setMostrarOverlay(false)}>
+          <button
+            className="continuar-btn"
+            onClick={() => {
+              setMostrarOverlay(false);
+              handleAvanzar(resultadoCorrecto ? 'acierto' : 'fallo');
+            }}
+          >
             Continuar
+          </button>
+        </div>
+      )}
+
+      {mensajeError && (
+        <div className="resultado-popup incorrecto">
+          <h3>⚠️ {mensajeError}</h3>
+          <button className="continuar-btn" onClick={() => setMensajeError(null)}>
+            OK
           </button>
         </div>
       )}

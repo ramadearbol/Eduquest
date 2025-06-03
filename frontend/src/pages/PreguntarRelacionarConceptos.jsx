@@ -1,25 +1,52 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, forwardRef, useImperativeHandle } from 'react';
 import '../styles/Pregunta.css';
 
-function PreguntaRelacionarConceptos({ world, difficulty, preguntaData }) {
-  // preguntaData esperado:
-  // {
-  //   pregunta: "Relaciona cada concepto con su definición:",
-  //   conceptos: ["Clase", "Método", "Variable"],
-  //   definiciones: {
-  //     Clase: "Define un tipo de objeto.",
-  //     Método: "Contiene instrucciones que se ejecutan.",
-  //     Variable: "Almacena datos."
-  //   }
-  // }
-
+const PreguntaRelacionarConceptos = forwardRef(({ world, difficulty }, ref) => {
+  const [preguntaData, setPreguntaData] = useState(null);
   const [respuestas, setRespuestas] = useState({});
-  const conceptos = preguntaData?.conceptos || ['Clase', 'Método', 'Variable'];
-  const definiciones = preguntaData?.definiciones || {
-    Clase: 'Define un tipo de objeto.',
-    Método: 'Contiene instrucciones que se ejecutan.',
-    Variable: 'Almacena datos.'
-  };
+
+  useEffect(() => {
+    const fetchPregunta = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        const res = await fetch(
+          `http://localhost:8082/api/openai/preguntaRelacionarConceptos?mundo=${encodeURIComponent(world.name)}&dificultad=${difficulty}`,
+          {
+            headers: {
+              'Authorization': `Bearer ${token}`,
+            },
+          }
+        );
+
+        if (!res.ok) throw new Error(`Error HTTP: ${res.status}`);
+
+        const data = await res.json();
+        setPreguntaData(data);
+        setRespuestas({});
+      } catch (error) {
+        console.error('Error al cargar la pregunta de relacionar conceptos:', error);
+      }
+    };
+
+    if (world && difficulty != null) {
+      fetchPregunta();
+    }
+  }, [world, difficulty]);
+
+  useImperativeHandle(ref, () => ({
+    validarRespuesta: () => {
+      if (!preguntaData) return null;
+
+      const correctas = preguntaData.definiciones;
+      return Object.keys(correctas).every(
+        (concepto) =>
+          respuestas[concepto]?.trim().toLowerCase() === correctas[concepto].trim().toLowerCase()
+      );
+    },
+  }));
+
+  const conceptos = preguntaData?.conceptos || [];
+  const definiciones = preguntaData ? Object.values(preguntaData.definiciones) : [];
 
   return (
     <div className="pregunta-wrapper">
@@ -43,7 +70,7 @@ function PreguntaRelacionarConceptos({ world, difficulty, preguntaData }) {
                 }
               >
                 <option value="">Selecciona definición</option>
-                {Object.values(definiciones).map((definicion, i) => (
+                {definiciones.map((definicion, i) => (
                   <option key={i} value={definicion}>
                     {definicion}
                   </option>
@@ -55,6 +82,6 @@ function PreguntaRelacionarConceptos({ world, difficulty, preguntaData }) {
       </div>
     </div>
   );
-}
+});
 
 export default PreguntaRelacionarConceptos;

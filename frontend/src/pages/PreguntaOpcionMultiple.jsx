@@ -1,15 +1,45 @@
-import React, { useState } from 'react';
-import '../styles/Pregunta.css'; // Asegúrate de tener un archivo de estilos común para todas las preguntas
+import React, { useState, useEffect, forwardRef, useImperativeHandle } from 'react';
+import '../styles/Pregunta.css';
 
-function PreguntaOpcionMultiple({ world, difficulty, preguntaData }) {
-  // preguntaData debe tener esta estructura:
-  // {
-  //   pregunta: "¿Cuál de estos es un tipo de dato primitivo en Java?",
-  //   opciones: ["int", "String", "float", "boolean"],
-  //   respuestaCorrecta: "int"
-  // }
-
+const PreguntaOpcionMultiple = forwardRef(({ world, difficulty }, ref) => {
+  const [preguntaData, setPreguntaData] = useState(null);
   const [seleccion, setSeleccion] = useState(null);
+
+  useEffect(() => {
+    const fetchPregunta = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        const res = await fetch(
+          `http://localhost:8082/api/openai/preguntaOpcionMultiple?mundo=${encodeURIComponent(world.name)}&dificultad=${difficulty}`,
+          {
+            headers: {
+              'Authorization': `Bearer ${token}`,
+            },
+          }
+        );
+
+        if (!res.ok) throw new Error(`Error HTTP: ${res.status}`);
+
+        const dataText = await res.text();
+        const parsed = JSON.parse(dataText);
+        setPreguntaData(parsed);
+        setSeleccion(null);
+      } catch (error) {
+        console.error('Error al cargar la pregunta de opción múltiple:', error);
+      }
+    };
+
+    if (world && difficulty != null) {
+      fetchPregunta();
+    }
+  }, [world?.name, difficulty]);
+
+  useImperativeHandle(ref, () => ({
+    validarRespuesta: () => {
+      if (!seleccion || !preguntaData) return null;
+      return preguntaData.respuesta_correcta.trim().toLowerCase() === seleccion.trim().toLowerCase();
+    },
+  }));
 
   const handleSeleccion = (opcion) => {
     setSeleccion(opcion);
@@ -39,6 +69,6 @@ function PreguntaOpcionMultiple({ world, difficulty, preguntaData }) {
       </div>
     </div>
   );
-}
+});
 
 export default PreguntaOpcionMultiple;
