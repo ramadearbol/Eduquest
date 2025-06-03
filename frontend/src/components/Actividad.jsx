@@ -40,8 +40,10 @@ function Actividad() {
   }, [world, difficulty, navigate]);
 
   useEffect(() => {
-    const Componente = preguntasComponentes[Math.floor(Math.random() * preguntasComponentes.length)];
-    setPreguntaActual(() => Componente);
+    if (indiceActual < preguntasComponentes.length) {
+      const Componente = preguntasComponentes[indiceActual];
+      setPreguntaActual(() => Componente);
+    }
   }, [indiceActual]);
 
   const handleAvanzar = (resultado) => {
@@ -93,7 +95,7 @@ function Actividad() {
       <div className="actividad-contenido">
         {PreguntaActual ? (
           <PreguntaActual
-            key={indiceActual} // ✅ Esto fuerza que el componente se remonte
+            key={indiceActual}
             world={world}
             difficulty={difficulty}
             ref={preguntaRef}
