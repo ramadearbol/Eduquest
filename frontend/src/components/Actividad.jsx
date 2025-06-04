@@ -24,13 +24,14 @@ function Actividad() {
   const { world, difficulty } = location.state || {};
 
   const [indiceActual, setIndiceActual] = useState(0);
-  const [progresoColores, setProgresoColores] = useState([]);
+  const [progresoColores, setProgresoColores] = useState([]); // Aquí guardamos aciertos/fallos
   const [mostrarOverlay, setMostrarOverlay] = useState(false);
   const [resultadoCorrecto, setResultadoCorrecto] = useState(false);
   const [mensajeError, setMensajeError] = useState(null);
 
   const preguntaRef = useRef();
   const [PreguntaActual, setPreguntaActual] = useState(null);
+  const [xpTotal, setXpTotal] = useState(0);
 
   useEffect(() => {
     if (!world || !difficulty) {
@@ -46,10 +47,80 @@ function Actividad() {
     }
   }, [indiceActual]);
 
-  const handleAvanzar = (resultado) => {
+  const handleAvanzar = async (resultado) => {
     setProgresoColores((prev) => [...prev, resultado]);
 
-    if (indiceActual + 1 >= MAX_PREGUNTAS) {
+    if (resultado === 'acierto') {
+      const xpPorPregunta = difficulty === 1 ? 5 : difficulty === 2 ? 10 : 15;
+      setXpTotal((prev) => prev + xpPorPregunta);
+    }
+
+    const esUltima = indiceActual + 1 >= MAX_PREGUNTAS;
+
+    if (esUltima) {
+      const resultadosFinales = [...progresoColores, resultado];
+      const aciertos = resultadosFinales.filter((r) => r === 'acierto').length;
+      const todoCorrecto = aciertos === MAX_PREGUNTAS;
+      const bono = todoCorrecto ? (difficulty === 1 ? 10 : difficulty === 2 ? 20 : 30) : 0;
+      const xpFinal = xpTotal + (resultado === 'acierto' ? (difficulty === 1 ? 5 : difficulty === 2 ? 10 : 15) : 0) + bono;
+
+      try {
+        const token = localStorage.getItem("token");
+
+        // Solo se llama si todas fueron correctas
+        if (todoCorrecto) {
+          await fetch("http://localhost:8082/api/retos/completar/1correcta", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          });
+        }
+
+        // Siempre se llama al completar la partida
+        await fetch("http://localhost:8082/api/retos/completar/1partida", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        await fetch("http://localhost:8082/api/retos/completar/5partidas", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        // Controlamos que solo se llame una vez por mundo
+        const mundosRegistrados = JSON.parse(localStorage.getItem("mundosRegistrados") || "[]");
+        if (!mundosRegistrados.includes(world)) {
+          await fetch("http://localhost:8082/api/retos/completar/4mundos", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          });
+          localStorage.setItem("mundosRegistrados", JSON.stringify([...mundosRegistrados, world]));
+        }
+
+        // Sumar la experiencia total
+        await fetch("http://localhost:8082/api/experiencia/ganar", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({ xpGanada: xpFinal }),
+        });
+      } catch (e) {
+        console.error("Error actualizando progreso o XP:", e);
+      }
+
       setTimeout(() => {
         navigate('/home/aprender');
       }, 800);

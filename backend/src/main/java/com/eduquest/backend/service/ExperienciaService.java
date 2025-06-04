@@ -73,6 +73,22 @@ public class ExperienciaService {
     }
 
     @Transactional
+    public void ganarExperiencia(UUID idUsuario, int xpGanada) {
+        try {
+            Query query = entityManager.createNativeQuery(
+                "SELECT public.ganar_xp(:idUsuario, :xpGanada)"
+            );
+            query.setParameter("idUsuario", idUsuario);
+            query.setParameter("xpGanada", xpGanada);
+            query.getSingleResult();  // ok porque ahora devuelve un boolean
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException("Error al ganar experiencia: " + e.getMessage());
+        }
+    }
+
+
+    @Transactional
     public void actualizarRetoLogin(UUID idUsuario) {
         Query query = entityManager.createNativeQuery("""
             UPDATE progreso_reto
@@ -134,14 +150,20 @@ public class ExperienciaService {
             .setParameter("tipo", tipo)
             .executeUpdate();
 
+        // Borrar retos completados para retos de tipo dado
+        entityManager.createNativeQuery(
+            "DELETE FROM retos_completados WHERE id_reto IN (SELECT id FROM retos WHERE tipo = :tipo)")
+            .setParameter("tipo", tipo)
+            .executeUpdate();
+
         // Obtener usuarios
         List<UUID> usuarios = entityManager.createNativeQuery("SELECT DISTINCT id_usuario FROM progreso_reto")
-                                          .getResultList();
+                                        .getResultList();
 
         // Obtener retos de tipo
         List<Integer> retos = entityManager.createNativeQuery("SELECT id FROM retos WHERE tipo = :tipo")
-                                           .setParameter("tipo", tipo)
-                                           .getResultList();
+                                        .setParameter("tipo", tipo)
+                                        .getResultList();
 
         // Insertar progreso 0 para todos los usuarios en cada reto
         for (UUID usuario : usuarios) {
@@ -166,4 +188,77 @@ public class ExperienciaService {
     public void resetSemanales() {
         resetRetosPorTipo("semanal");
     }
+
+    @Transactional
+    public void actualizarRetoCompletarUnaPartida(UUID idUsuario) {
+        Query query = entityManager.createNativeQuery("""
+            UPDATE progreso_reto
+            SET progreso_actual = 1,
+                completado = true
+            WHERE id_usuario = :idUsuario
+            AND id_reto = (
+                SELECT id FROM retos 
+                WHERE LOWER(descripcion) LIKE '%completar una partida%' LIMIT 1
+            )
+            AND completado = false
+        """);
+        query.setParameter("idUsuario", idUsuario);
+        query.executeUpdate();
+    }
+
+    @Transactional
+    public void actualizarRetoCompletarCincoPartidas(UUID idUsuario) {
+        Query query = entityManager.createNativeQuery("""
+            UPDATE progreso_reto
+            SET progreso_actual = progreso_actual + 1,
+                completado = progreso_actual + 1 >= (
+                    SELECT total FROM retos WHERE id = progreso_reto.id_reto
+                )
+            WHERE id_usuario = :idUsuario
+            AND id_reto = (
+                SELECT id FROM retos 
+                WHERE LOWER(descripcion) LIKE '%completar 5 partidas%' LIMIT 1
+            )
+            AND completado = false
+        """);
+        query.setParameter("idUsuario", idUsuario);
+        query.executeUpdate();
+    }
+
+    @Transactional
+    public void actualizarRetoPreguntaSinError(UUID idUsuario) {
+        Query query = entityManager.createNativeQuery("""
+            UPDATE progreso_reto
+            SET progreso_actual = 1,
+                completado = true
+            WHERE id_usuario = :idUsuario
+            AND id_reto = (
+                SELECT id FROM retos 
+                WHERE LOWER(descripcion) LIKE '%haz una pregunta sin error%' LIMIT 1
+            )
+            AND completado = false
+        """);
+        query.setParameter("idUsuario", idUsuario);
+        query.executeUpdate();
+    }
+
+    @Transactional
+    public void actualizarRetoCuatroMundos(UUID idUsuario) {
+        Query query = entityManager.createNativeQuery("""
+            UPDATE progreso_reto
+            SET progreso_actual = progreso_actual + 1,
+                completado = progreso_actual + 1 >= (
+                    SELECT total FROM retos WHERE id = progreso_reto.id_reto
+                )
+            WHERE id_usuario = :idUsuario
+            AND id_reto = (
+                SELECT id FROM retos 
+                WHERE LOWER(descripcion) LIKE '%4 mundos diferentes%' LIMIT 1
+            )
+            AND completado = false
+        """);
+        query.setParameter("idUsuario", idUsuario);
+        query.executeUpdate();
+    }
+
 }

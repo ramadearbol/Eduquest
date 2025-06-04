@@ -3,6 +3,7 @@ package com.eduquest.backend.security;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Value;
@@ -67,6 +68,16 @@ public class JwtTokenUtil {
         }
         return null;
     }
+
+    // Obtiene todos los claims del token
+    public Claims getAllClaimsFromToken(String token) {
+        return Jwts.parserBuilder()
+            .setSigningKey(getSigningKey())
+            .build()
+            .parseClaimsJws(token)
+            .getBody();
+    }
+
 
     
 }

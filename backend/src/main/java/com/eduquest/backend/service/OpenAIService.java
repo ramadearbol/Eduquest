@@ -1,4 +1,4 @@
-package com.eduquest.backend.security;
+package com.eduquest.backend.service;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;

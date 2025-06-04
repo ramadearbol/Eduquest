@@ -3,11 +3,10 @@ package com.eduquest.backend.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import com.eduquest.backend.security.OpenAIService;
+import com.eduquest.backend.service.OpenAIService;
 
 @RestController
 @RequestMapping("/api/openai")
-@CrossOrigin(origins = "http://localhost:5173") // o Vercel domain en prod
 public class OpenAIController {
 
     @Autowired

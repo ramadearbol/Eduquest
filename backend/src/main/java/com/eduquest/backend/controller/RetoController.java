@@ -69,5 +69,30 @@ public class RetoController {
         experienciaService.actualizarRetoUnaHora(idUsuario);
     }
 
+    @PostMapping("/completar/1partida")
+    public void completarUnaPartida(Principal principal) {
+        UUID idUsuario = authService.getIdUsuarioByEmail(principal.getName());
+        experienciaService.actualizarRetoCompletarUnaPartida(idUsuario);
+    }
+
+    @PostMapping("/completar/5partidas")
+    public void completarCincoPartidas(Principal principal) {
+        UUID idUsuario = authService.getIdUsuarioByEmail(principal.getName());
+        experienciaService.actualizarRetoCompletarCincoPartidas(idUsuario);
+    }
+
+    @PostMapping("/completar/1correcta")
+    public void completarPreguntaCorrecta(Principal principal) {
+        UUID idUsuario = authService.getIdUsuarioByEmail(principal.getName());
+        experienciaService.actualizarRetoPreguntaSinError(idUsuario);
+    }
+
+    @PostMapping("/completar/4mundos")
+    public void completarCuatroMundos(Principal principal) {
+        UUID idUsuario = authService.getIdUsuarioByEmail(principal.getName());
+        experienciaService.actualizarRetoCuatroMundos(idUsuario);
+    }
+
+
 
 }
