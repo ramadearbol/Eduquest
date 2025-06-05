@@ -93,9 +93,13 @@ La documentación incluye:
 
 ## 🎨 Diseño de la Interfaz (Figma) <a id="diseno-de-la-interfaz-figma"></a>
 
-🔗 [Ver diseño en Figma](https://www.figma.com/design/w9l3FmvuzWzmqM53l2T00T/Eduquest?node-id=0-1&t=vDFRVd4K881tFivr-1)
+- 🔍 **Vista general del diseño (todas las pantallas)**:  
+  [Ver en Figma - Modo diseño completo](https://www.figma.com/design/w9l3FmvuzWzmqM53l2T00T/Eduquest?node-id=0-1&t=vDFRVd4K881tFivr-1)
 
-Aquí se muestra el prototipo de la interfaz desarrollado con Figma para definir la experiencia de usuario.
+- 💻 **Modo prototipo interactivo (simulación en ordenador)**:  
+  [Ver en Figma - Modo prototipo](https://www.figma.com/proto/w9l3FmvuzWzmqM53l2T00T/Eduquest?node-id=1-2&t=319nZaK3HIkacBbv-1&scaling=scale-down&content-scaling=fixed&page-id=0%3A1&starting-point-node-id=1%3A2)
+
+Aquí se muestra tanto el diseño general de la interfaz como la simulación interactiva de navegación, desarrollados con Figma para definir la experiencia de usuario.
 
 ---
 
