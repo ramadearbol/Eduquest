@@ -113,6 +113,9 @@ function Retos() {
       return;
     }
 
+      console.log("👉 Clic en reclamar reto:", reto);
+      console.log("📤 Enviando POST para reclamar recompensa...");
+
     try {
       const res = await fetch(`${BACKEND_URL}/api/retos/reclamar`, {
         method: "POST",
@@ -127,6 +130,8 @@ function Retos() {
         }),
       });
 
+        console.log("📥 Respuesta recibida del backend...");
+
       if (!res.ok) {
         const errorText = await res.text();
         window.alert(`Error al reclamar recompensa: ${errorText}`);
@@ -134,6 +139,7 @@ function Retos() {
       }
 
       const mensaje = await res.text();
+      console.log("✅ Mensaje del backend:", mensaje);
 
       if (mensaje === "Ya has reclamado este reto recientemente.") {
         setRetosReclamados((prev) => ({ ...prev, [reto.idReto]: "YA_RECLAMADO" }));

@@ -95,18 +95,6 @@ function Actividad() {
           },
         });
 
-        const mundosRegistrados = JSON.parse(localStorage.getItem("mundosRegistrados") || "[]");
-        if (!mundosRegistrados.includes(world)) {
-          await fetch(`${BACKEND_URL}/api/retos/completar/4mundos`, {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`,
-            },
-          });
-          localStorage.setItem("mundosRegistrados", JSON.stringify([...mundosRegistrados, world]));
-        }
-
         await fetch(`${BACKEND_URL}/api/experiencia/ganar`, {
           method: "POST",
           headers: {

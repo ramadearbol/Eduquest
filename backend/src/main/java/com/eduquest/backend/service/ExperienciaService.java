@@ -241,24 +241,4 @@ public class ExperienciaService {
         query.setParameter("idUsuario", idUsuario);
         query.executeUpdate();
     }
-
-    @Transactional
-    public void actualizarRetoCuatroMundos(UUID idUsuario) {
-        Query query = entityManager.createNativeQuery("""
-            UPDATE progreso_reto
-            SET progreso_actual = progreso_actual + 1,
-                completado = progreso_actual + 1 >= (
-                    SELECT total FROM retos WHERE id = progreso_reto.id_reto
-                )
-            WHERE id_usuario = :idUsuario
-            AND id_reto = (
-                SELECT id FROM retos 
-                WHERE LOWER(descripcion) LIKE '%4 mundos diferentes%' LIMIT 1
-            )
-            AND completado = false
-        """);
-        query.setParameter("idUsuario", idUsuario);
-        query.executeUpdate();
-    }
-
 }

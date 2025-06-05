@@ -86,13 +86,4 @@ public class RetoController {
         UUID idUsuario = authService.getIdUsuarioByEmail(principal.getName());
         experienciaService.actualizarRetoPreguntaSinError(idUsuario);
     }
-
-    @PostMapping("/completar/4mundos")
-    public void completarCuatroMundos(Principal principal) {
-        UUID idUsuario = authService.getIdUsuarioByEmail(principal.getName());
-        experienciaService.actualizarRetoCuatroMundos(idUsuario);
-    }
-
-
-
 }
