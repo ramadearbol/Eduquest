@@ -22,9 +22,8 @@ const PreguntaOpcionMultiple = forwardRef(({ world, difficulty }, ref) => {
 
         if (!res.ok) throw new Error(`Error HTTP: ${res.status}`);
 
-        const dataText = await res.text();
-        const parsed = JSON.parse(dataText);
-        setPreguntaData(parsed);
+        const data = await res.json();
+        setPreguntaData(data);        
         setSeleccion(null);
       } catch (error) {
         console.error('Error al cargar la pregunta de opción múltiple:', error);

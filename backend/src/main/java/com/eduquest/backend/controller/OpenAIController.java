@@ -5,6 +5,8 @@ import org.springframework.web.bind.annotation.*;
 
 import com.eduquest.backend.service.OpenAIService;
 
+import java.util.Map;
+
 @RestController
 @RequestMapping("/api/openai")
 public class OpenAIController {
@@ -13,27 +15,27 @@ public class OpenAIController {
     private OpenAIService openAIService;
 
     @GetMapping("/preguntaVerdadero")
-    public String obtenerPreguntaVerdadero(@RequestParam String mundo, @RequestParam int dificultad) {
+    public Map<String, Object> obtenerPreguntaVerdadero(@RequestParam String mundo, @RequestParam int dificultad) throws Exception {
         return openAIService.generarPreguntaVerdadero(mundo, dificultad);
     }
 
     @GetMapping("/preguntaDefinicion")
-    public String obtenerPreguntaDefinicion(@RequestParam String mundo, @RequestParam int dificultad) {
+    public Map<String, Object> obtenerPreguntaDefinicion(@RequestParam String mundo, @RequestParam int dificultad) throws Exception {
         return openAIService.generarPreguntaDefinicion(mundo, dificultad);
     }
 
     @GetMapping("/preguntaOpcionMultiple")
-    public String obtenerPreguntaOpcionMultiple(@RequestParam String mundo, @RequestParam int dificultad) {
+    public Map<String, Object> obtenerPreguntaOpcionMultiple(@RequestParam String mundo, @RequestParam int dificultad) throws Exception {
         return openAIService.generarPreguntaOpcionMultiple(mundo, dificultad);
     }
 
     @GetMapping("/preguntaCompletarCodigo")
-    public String obtenerPreguntaCompletarCodigo(@RequestParam String mundo, @RequestParam int dificultad) {
+    public Map<String, Object> obtenerPreguntaCompletarCodigo(@RequestParam String mundo, @RequestParam int dificultad) throws Exception {
         return openAIService.generarPreguntaCompletarCodigo(mundo, dificultad);
     }
 
     @GetMapping("/preguntaRelacionarConceptos")
-    public String obtenerPreguntaRelacionarConceptos(@RequestParam String mundo, @RequestParam int dificultad) {
+    public Map<String, Object> obtenerPreguntaRelacionarConceptos(@RequestParam String mundo, @RequestParam int dificultad) throws Exception {
         return openAIService.generarPreguntaRelacionarConceptos(mundo, dificultad);
     }
 
