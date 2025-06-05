@@ -35,6 +35,7 @@ function Actividad() {
   const [PreguntaActual, setPreguntaActual] = useState(null);
   const [xpTotal, setXpTotal] = useState(0);
 
+  // Verifica si world y difficulty están disponibles. Si no, redirige al usuario a la página de aprendizaje.
   useEffect(() => {
     if (!world || !difficulty) {
       navigate('/home/aprender');
@@ -42,6 +43,7 @@ function Actividad() {
     }
   }, [world, difficulty, navigate]);
 
+  // Establece el componente de la pregunta según el índice actual.
   useEffect(() => {
     if (indiceActual < preguntasComponentes.length) {
       const Componente = preguntasComponentes[indiceActual];
@@ -49,6 +51,7 @@ function Actividad() {
     }
   }, [indiceActual]);
 
+  // Maneja el avance de la actividad después de responder o saltar una pregunta.
   const handleAvanzar = async (resultado) => {
     setProgresoColores((prev) => [...prev, resultado]);
 
@@ -115,11 +118,13 @@ function Actividad() {
     }
   };
 
+  // Función para saltar la pregunta actual.
   const handleSkip = () => {
     setResultadoCorrecto(false);
     setMostrarOverlay(true);
   };
 
+  // Función que valida la respuesta seleccionada por el usuario.
   const handleCheck = () => {
     if (!preguntaRef.current) return;
 
