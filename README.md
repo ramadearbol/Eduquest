@@ -40,7 +40,7 @@ Aquí se incluirán:
 
 ---
 
-## ⚙️ Funcionalidades y Tecnologías
+## ⚙️ Funcionalidades y Tecnologias
 
 ### Funcionalidades principales:
 - Sistema de retos por niveles
