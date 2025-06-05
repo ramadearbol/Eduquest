@@ -80,7 +80,7 @@ Los usuarios pueden registrarse e iniciar sesión para acceder a su perfil, dond
 
 ## 📄 Documentación Técnica <a id="documentacion-tecnica"></a>
 
-🔗 [Ver documentación completa](https://enlace-a-la-documentacion.com)
+🔗 [Ver documentación completa](https://docs.google.com/document/d/18ApGvmYp0JX7P3j-dxGN12sSd52T4x352XwxLtdDwEY/edit?usp=sharing)
 
 La documentación incluye:
 
