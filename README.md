@@ -137,7 +137,7 @@ Consulta el archivo [LICENSE](./LICENSE) para más detalles.
 
 ## 📬 Contacto <a id="contacto"></a>
 
-- 📧 Email: ramon.gavira@example.com  
-- 🐙 GitHub: [@ramongavira](https://github.com/ramongavira)  
+- 📧 Email: rgaviraferrusola@gmail.com
+- 🐙 GitHub: [@ramongavira](https://github.com/ramadearbol)  
 - 💼 LinkedIn: [linkedin.com/in/ramongavira](https://www.linkedin.com/in/ramongavira)
 
