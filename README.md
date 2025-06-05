@@ -27,7 +27,7 @@
 
 ---
 
-## 🧭 Introducción
+## 🧭 Introducción <a id="introduccion"></a>
 
 **EduQuest** es una plataforma educativa interactiva diseñada para motivar a los estudiantes a través de retos gamificados.  
 Su objetivo es transformar el aprendizaje tradicional en una experiencia dinámica, participativa y divertida.
@@ -67,7 +67,7 @@ Aquí se incluirán:
 
 ---
 
-## 📚 Guía de Uso
+## 📚 Guía de Uso <a id="guia-de-uso"></a>
 
 - Regístrate como usuario (estudiante o profesor)  
 - Accede al panel principal  
@@ -77,7 +77,7 @@ Aquí se incluirán:
 
 ---
 
-## 📄 Documentación Técnica
+## 📄 Documentación Técnica <a id="documentacion-tecnica"></a>
 
 🔗 [Ver documentación completa](https://enlace-a-la-documentacion.com)
 
@@ -91,15 +91,15 @@ La documentación incluye:
 
 ---  
 
-## 🎨 Diseño de la Interfaz (Figma)
+## 🎨 Diseño de la Interfaz (Figma) <a id="diseno-de-la-interfaz-figma"></a>
 
-🔗 [Ver diseño en Figma](https://www.figma.com/link-ejemplo)
+🔗 [Ver diseño en Figma]([https://www.figma.com/link-ejemplo](https://www.figma.com/design/w9l3FmvuzWzmqM53l2T00T/Eduquest?node-id=0-1&t=vDFRVd4K881tFivr-1))
 
 Aquí se muestra el prototipo de la interfaz desarrollado con Figma para definir la experiencia de usuario.
 
 ---
 
-## 🧩 Conclusión
+## 🧩 Conclusión <a id="conclusion"></a>
 
 **EduQuest** es un proyecto que refleja cómo la tecnología puede apoyar al sistema educativo mediante metodologías activas y gamificación.
 
@@ -111,7 +111,7 @@ Gracias al desarrollo de esta aplicación:
 
 ---
 
-## 🤝 Contribuciones y Agradecimientos
+## 🤝 Contribuciones y Agradecimientos <a id="contribuciones-y-agradecimientos"></a>
 
 Agradezco el apoyo de:
 
@@ -123,7 +123,7 @@ Inspiración tomada de plataformas como Duolingo, Moodle y Kahoot.
 
 ---
 
-## 📜 Licencia
+## 📜 Licencia <a id="licencia"></a>
 
 Este proyecto se publica bajo la **Licencia MIT**.  
 Consulta el archivo [LICENSE](./LICENSE) para más detalles.
