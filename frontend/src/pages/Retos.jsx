@@ -4,7 +4,7 @@ import { FaRegClock } from "react-icons/fa";
 import iconoMan from "../assets/Man.png";
 import gifMoneda from "../assets/Moneda.gif";
 
-const BACKEND_URL = import.meta.env.REACT_APP_BACKEND_URL;
+const BACKEND_URL = import.meta.env.VITE_REACT_APP_BACKEND_URL;
 
 function Retos() {
   const [desafiosDiarios, setDesafiosDiarios] = useState([]);

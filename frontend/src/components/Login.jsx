@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import "../styles/Login.css";
 import logoEduQuest from "../assets/Logo.png";
 
-const BACKEND_URL = import.meta.env.REACT_APP_BACKEND_URL;
+const BACKEND_URL = import.meta.env.VITE_REACT_APP_BACKEND_URL;
 
 function Login() {
   const navigate = useNavigate();

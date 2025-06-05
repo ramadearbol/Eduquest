@@ -8,7 +8,7 @@ import PreguntaVerdaderoFalso from '../pages/PreguntaVerdaderoFalso';
 import PreguntaCompletarCodigo from '../pages/PreguntarCompletarCodigo';
 import PreguntaRelacionarConceptos from '../pages/PreguntarRelacionarConceptos';
 
-const BACKEND_URL = import.meta.env.REACT_APP_BACKEND_URL;
+const BACKEND_URL = import.meta.env.VITE_REACT_APP_BACKEND_URL;
 
 const preguntasComponentes = [
   PreguntaDefinicion,

@@ -3,7 +3,7 @@ import "../styles/Ranking.css";
 import iconoLiga from '../assets/Liga.png';
 import iconoPerfil from '../assets/Perfil.png';
 
-const BACKEND_URL = import.meta.env.REACT_APP_BACKEND_URL;
+const BACKEND_URL = import.meta.env.VITE_REACT_APP_BACKEND_URL;
 
 function Ranking() {
   const [jugadores, setJugadores] = useState([]);

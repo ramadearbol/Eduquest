@@ -1,7 +1,7 @@
 import React, { useState, useEffect, forwardRef, useImperativeHandle } from 'react';
 import '../styles/Pregunta.css';
 
-const BACKEND_URL = import.meta.env.REACT_APP_BACKEND_URL;
+const BACKEND_URL = import.meta.env.VITE_REACT_APP_BACKEND_URL;
 
 const PreguntaVerdaderoFalso = forwardRef(({ world, difficulty }, ref) => {
   const [preguntaData, setPreguntaData] = useState(null);
