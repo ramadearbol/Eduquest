@@ -16,17 +16,22 @@ function Retos() {
   useEffect(() => {
     const token = localStorage.getItem("token");
 
+    // Función para obtener los desafíos
     const fetchRetos = async () => {
       try {
         const res = await fetch(`${BACKEND_URL}/api/retos/usuario`, {
           headers: { Authorization: `Bearer ${token}` },
         });
-        if (!res.ok) throw new Error("Error al cargar retos");
+        if (!res.ok) {
+          const errorText = await res.text();
+          console.error(`Error al cargar los retos - Status: ${res.status}, Mensaje: ${errorText}`);
+          throw new Error(`Error ${res.status}: ${errorText}`);
+        }
         const data = await res.json();
         setDesafiosDiarios(data.diarios);
         setDesafiosSemanales(data.semanales);
       } catch (e) {
-        console.error(e);
+        console.error("Error en fetchRetos:", e.message);
       }
     };
 
@@ -65,12 +70,13 @@ function Retos() {
         });
 
         if (!res.ok) {
-          console.error("Error al actualizar reto de 1 hora");
+          const errorText = await res.text();
+          console.error(`Error al actualizar reto de 1 hora - Status: ${res.status}, Mensaje: ${errorText}`);
         } else {
           console.log("Reto de 1 hora actualizado automáticamente");
         }
       } catch (e) {
-        console.error("Error al actualizar reto de 1 hora", e);
+        console.error("Error en actualizarRetoHora:", e.message);
       }
     };
 
@@ -112,10 +118,6 @@ function Retos() {
       window.alert("Usuario no autenticado");
       return;
     }
-
-      console.log("👉 Clic en reclamar reto:", reto);
-      console.log("📤 Enviando POST para reclamar recompensa...");
-
     try {
       const res = await fetch(`${BACKEND_URL}/api/retos/reclamar`, {
         method: "POST",
@@ -130,17 +132,14 @@ function Retos() {
         }),
       });
 
-        console.log("📥 Respuesta recibida del backend...");
-
       if (!res.ok) {
         const errorText = await res.text();
+        console.error(`Error al reclamar recompensa - Status: ${res.status}, Mensaje: ${errorText}`);
         window.alert(`Error al reclamar recompensa: ${errorText}`);
         return;
       }
 
       const mensaje = await res.text();
-      console.log("✅ Mensaje del backend:", mensaje);
-
       if (mensaje === "Ya has reclamado este reto recientemente.") {
         setRetosReclamados((prev) => ({ ...prev, [reto.idReto]: "YA_RECLAMADO" }));
       } else if (mensaje === "Recompensa reclamada correctamente.") {
@@ -149,7 +148,7 @@ function Retos() {
         window.alert(mensaje);
       }
     } catch (e) {
-      console.error(e);
+      console.error("Error en handleClaimReward:", e.message);
       window.alert("Error al reclamar recompensa");
     }
   };

@@ -12,6 +12,7 @@ function Ranking() {
   useEffect(() => {
     const token = localStorage.getItem("token");
 
+    // Función para obtener el ranking de jugadores
     const fetchRanking = async () => {
       try {
         const response = await fetch(`${BACKEND_URL}/api/ranking`, {
@@ -20,16 +21,22 @@ function Ranking() {
           },
         });
 
-        if (!response.ok) throw new Error("Error al obtener el ranking");
+        if (!response.ok) {
+          // Leemos el error para entender qué pasa
+          const errorText = await response.text();
+          console.error(`Error al obtener el ranking - Status: ${response.status}, Mensaje: ${errorText}`);
+          throw new Error(`Error ${response.status}: ${errorText}`);
+        }
 
         const data = await response.json();
         const ordenados = data.sort((a, b) => a.posicion - b.posicion);
         setJugadores(ordenados);
       } catch (error) {
-        console.error(error);
+        console.error("Error fetchRanking:", error.message);
       }
     };
 
+    // Función para obtener el ranking del usuario
     const fetchMiRanking = async () => {
       try {
         const response = await fetch(`${BACKEND_URL}/api/ranking/me`, {
@@ -38,18 +45,23 @@ function Ranking() {
           },
         });
 
-        if (!response.ok) throw new Error("Error al obtener mi ranking");
+        if (!response.ok) {
+          // Leemos el error para entender qué pasa
+          const errorText = await response.text();
+          console.error(`Error al obtener mi ranking - Status: ${response.status}, Mensaje: ${errorText}`);
+          throw new Error(`Error ${response.status}: ${errorText}`);
+        }
 
         const data = await response.json();
         setMiRanking(data);
       } catch (error) {
-        console.error(error);
+        console.error("Error fetchMiRanking:", error.message);
       }
     };
 
     fetchRanking();
     fetchMiRanking();
-  }, []);
+  }, []); // Se ejecuta una vez al montar el componente
 
   const calcularProgresoXP = () => {
     if (!miRanking) return 0;
