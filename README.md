@@ -51,8 +51,8 @@ Aquí se incluirán:
 
 ### Tecnologías utilizadas:
 - **Frontend:** React, HTML, CSS
-- **Backend:** Node.js, Express
-- **Base de datos:** MongoDB / Firebase
+- **Backend:** Spring Boot
+- **Base de datos:** Supabase
 - **Diseño de interfaz:** Figma
 - **Control de versiones:** Git + GitHub
 
