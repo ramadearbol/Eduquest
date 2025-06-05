@@ -5,6 +5,8 @@ import com.eduquest.backend.model.User;
 import com.eduquest.backend.repository.RankingRepository;
 import com.eduquest.backend.repository.UserRepository;
 
+import jakarta.transaction.Transactional;
+
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,14 +25,17 @@ public class RankingService {
         this.userRepository = userRepository;
     }
 
+    @Transactional
     public List<Ranking> getAllRanking() {
         return rankingRepository.findAll();
     }
 
+    @Transactional
     public Optional<Ranking> getRankingByUserId(UUID userId) {
         return rankingRepository.findByIdusuario(userId);
     }
 
+    @Transactional
     public UUID getUserIdByEmail(String email) {
         return userRepository.findByEmail(email)   // <-- usar la instancia
                 .map(User::getId)

@@ -24,6 +24,7 @@ public class AuthService {
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
 
+    @Transactional
     public String register(String username, String email, String rawPassword) {
         if (userRepository.existsByEmail(email)) {
             throw new RuntimeException("El correo ya está registrado.");
@@ -38,6 +39,7 @@ public class AuthService {
         return jwtTokenUtil.generateToken(user.getEmail(), user.getId());
     }
 
+    @Transactional(readOnly = true)
     public String login(String email, String rawPassword) {
         User user = userRepository.findByEmail(email)
             .orElseThrow(() -> new RuntimeException("Usuario no encontrado."));
@@ -49,13 +51,10 @@ public class AuthService {
         return jwtTokenUtil.generateToken(user.getEmail(), user.getId());
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public UUID getIdUsuarioByEmail(String email) {
-        Optional<User> userOpt = userRepository.findByEmail(email);
-        if (userOpt.isPresent()) {
-            return userOpt.get().getId(); // Asumo que tu entidad User tiene getId() que devuelve UUID
-        } else {
-            throw new RuntimeException("Usuario no encontrado con email: " + email);
-        }
+        return userRepository.findByEmail(email)
+                .map(User::getId)
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado con email: " + email));
     }
 }

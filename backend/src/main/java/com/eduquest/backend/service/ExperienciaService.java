@@ -17,6 +17,7 @@ public class ExperienciaService {
     @PersistenceContext
     private EntityManager entityManager;
 
+    @Transactional(readOnly = true)
     public Map<String, List<RetoDto>> obtenerRetosPorUsuario(UUID idUsuario) {
         List<RetoDto> diarios = obtenerRetosPorTipoYUsuario(idUsuario, "diario");
         List<RetoDto> semanales = obtenerRetosPorTipoYUsuario(idUsuario, "semanal");
@@ -27,6 +28,7 @@ public class ExperienciaService {
         return map;
     }
 
+    
     private List<RetoDto> obtenerRetosPorTipoYUsuario(UUID idUsuario, String tipo) {
        String sql = "SELECT r.id AS id_reto, r.descripcion, pr.progreso_actual, r.total, pr.completado, r.xp_recompensa, r.tipo " +
              "FROM retos r " +
