@@ -40,7 +40,7 @@ Aquí se incluirán:
 
 ---
 
-## ⚙️ Funcionalidades y Tecnologias
+## ⚙️ Funcionalidades y Tecnologías <a id="funcionalidades-y-tecnologias"></a>
 
 ### Funcionalidades principales:
 - Sistema de retos por niveles
@@ -58,7 +58,7 @@ Aquí se incluirán:
 
 ---
 
-## 🛠️ Guía de Instalación
+## 🛠️ Guía de Instalación <a id="guia-de-instalacion"></a>
 
 1. Clona el repositorio:
    ```bash
@@ -130,7 +130,7 @@ Consulta el archivo [LICENSE](./LICENSE) para más detalles.
 
 ---
 
-## 📬 Contacto
+## 📬 Contacto <a id="contacto"></a>
 
 - 📧 Email: ramon.gavira@example.com  
 - 🐙 GitHub: [@ramongavira](https://github.com/ramongavira)  
