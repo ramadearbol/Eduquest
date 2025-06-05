@@ -93,7 +93,7 @@ La documentación incluye:
 
 ## 🎨 Diseño de la Interfaz (Figma) <a id="diseno-de-la-interfaz-figma"></a>
 
-🔗 [Ver diseño en Figma]([https://www.figma.com/link-ejemplo](https://www.figma.com/design/w9l3FmvuzWzmqM53l2T00T/Eduquest?node-id=0-1&t=vDFRVd4K881tFivr-1))
+🔗 [Ver diseño en Figma](https://www.figma.com/design/w9l3FmvuzWzmqM53l2T00T/Eduquest?node-id=0-1&t=vDFRVd4K881tFivr-1)
 
 Aquí se muestra el prototipo de la interfaz desarrollado con Figma para definir la experiencia de usuario.
 
