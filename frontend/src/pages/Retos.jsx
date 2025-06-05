@@ -191,8 +191,12 @@ function Retos() {
                 </div>
               ) : (
                 <button
-                  className="reclamar-btn"
-                  onClick={() => handleClaimReward({ ...d, tipo })}
+                  className="reclamar-btn"                  
+                  onClick={(e) => {
+                    e.preventDefault();
+                    console.log("🟡 Click en reclamar reto:", d); // ⬅️ IMPORTANTE
+                    handleClaimReward({ ...d, tipo });
+                  }}
                 >
                   Reclamar Recompensa
                 </button>
