@@ -50,9 +50,9 @@ Aquí se incluirán:
 - Registro e inicio de sesión con control de roles
 
 ### Tecnologías utilizadas:
-- **Frontend:** React, HTML, CSS
-- **Backend:** Spring Boot
-- **Base de datos:** Supabase
+- **Frontend:** React (JSX/JavaScript)
+- **Backend:** Spring Boot (Java)
+- **Base de datos:** Supabase (PostgreSQL gestionado)
 - **Diseño de interfaz:** Figma
 - **Control de versiones:** Git + GitHub
 
