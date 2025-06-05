@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import "../styles/Login.css";
 import logoEduQuest from "../assets/Logo.png";
 
+const BACKEND_URL = import.meta.env.REACT_APP_BACKEND_URL;
+
 function Login() {
   const navigate = useNavigate();
 
@@ -40,7 +42,7 @@ function Login() {
 
     setLoading(true);
     try {
-      const response = await fetch("http://localhost:8082/auth/login", {
+      const response = await fetch(`${BACKEND_URL}/auth/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

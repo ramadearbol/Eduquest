@@ -1,6 +1,8 @@
 import React, { useState, useEffect, forwardRef, useImperativeHandle } from 'react';
 import '../styles/Pregunta.css';
 
+const BACKEND_URL = import.meta.env.REACT_APP_BACKEND_URL;
+
 const PreguntaVerdaderoFalso = forwardRef(({ world, difficulty }, ref) => {
   const [preguntaData, setPreguntaData] = useState(null);
   const [respuesta, setRespuesta] = useState(null);
@@ -10,7 +12,7 @@ const PreguntaVerdaderoFalso = forwardRef(({ world, difficulty }, ref) => {
       try {
         const token = localStorage.getItem("token");
         const res = await fetch(
-          `http://localhost:8082/api/openai/preguntaVerdadero?mundo=${encodeURIComponent(world.name)}&dificultad=${difficulty}`,
+          `${BACKEND_URL}/api/openai/preguntaVerdadero?mundo=${encodeURIComponent(world.name)}&dificultad=${difficulty}`,
           {
             headers: {
               'Authorization': `Bearer ${token}`,
@@ -31,7 +33,7 @@ const PreguntaVerdaderoFalso = forwardRef(({ world, difficulty }, ref) => {
     if (world && difficulty != null) {
       fetchPregunta();
     }
-  }, [world, difficulty]); // <-- Aquí quitamos 'indice'
+  }, [world, difficulty]);
 
   useImperativeHandle(ref, () => ({
     validarRespuesta: () => {

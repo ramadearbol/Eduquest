@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import "../styles/Register.css";
 import logoEduQuest from "../assets/Logo.png";
 
+const BACKEND_URL = import.meta.env.REACT_APP_BACKEND_URL;
+
 function Register() {
   const navigate = useNavigate();
 
@@ -51,7 +53,7 @@ function Register() {
 
     try {
       // Paso 1: Registrar el usuario
-      const response = await fetch("http://localhost:8082/auth/register", {
+      const response = await fetch(`${BACKEND_URL}/auth/register`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, username, password }),
@@ -64,7 +66,7 @@ function Register() {
       }
 
       // Paso 2: Login automático después del registro
-      const loginRes = await fetch("http://localhost:8082/auth/login", {
+      const loginRes = await fetch(`${BACKEND_URL}/auth/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),

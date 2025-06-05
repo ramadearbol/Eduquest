@@ -4,6 +4,8 @@ import { FaRegClock } from "react-icons/fa";
 import iconoMan from "../assets/Man.png";
 import gifMoneda from "../assets/Moneda.gif";
 
+const BACKEND_URL = import.meta.env.REACT_APP_BACKEND_URL;
+
 function Retos() {
   const [desafiosDiarios, setDesafiosDiarios] = useState([]);
   const [desafiosSemanales, setDesafiosSemanales] = useState([]);
@@ -16,7 +18,7 @@ function Retos() {
 
     const fetchRetos = async () => {
       try {
-        const res = await fetch("http://localhost:8082/api/retos/usuario", {
+        const res = await fetch(`${BACKEND_URL}/api/retos/usuario`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         if (!res.ok) throw new Error("Error al cargar retos");
@@ -51,12 +53,11 @@ function Retos() {
     updateTime();
     const interval = setInterval(updateTime, 1000);
 
-    // ======= Aquí va la llamada automática cada hora en punto =======
     const actualizarRetoHora = async () => {
       if (!token) return;
 
       try {
-        const res = await fetch("http://localhost:8082/api/retos/hora", {
+        const res = await fetch(`${BACKEND_URL}/api/retos/hora`, {
           method: "POST",
           headers: {
             Authorization: `Bearer ${token}`,
@@ -113,7 +114,7 @@ function Retos() {
     }
 
     try {
-      const res = await fetch("http://localhost:8082/api/retos/reclamar", {
+      const res = await fetch(`${BACKEND_URL}/api/retos/reclamar`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,

@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useImperativeHandle, forwardRef } from 'react';
 import '../styles/Pregunta.css';
 
+const BACKEND_URL = import.meta.env.REACT_APP_BACKEND_URL;
+
 const PreguntaDefinicion = forwardRef(({ world, difficulty }, ref) => {
   const [preguntaData, setPreguntaData] = useState(null);
   const [seleccionada, setSeleccionada] = useState(null);
@@ -11,7 +13,7 @@ const PreguntaDefinicion = forwardRef(({ world, difficulty }, ref) => {
         const token = localStorage.getItem("token");
 
         const res = await fetch(
-          `http://localhost:8082/api/openai/preguntaDefinicion?mundo=${encodeURIComponent(world.name)}&dificultad=${difficulty}`,
+          `${BACKEND_URL}/api/openai/preguntaDefinicion?mundo=${encodeURIComponent(world.name)}&dificultad=${difficulty}`,
           {
             headers: {
               'Authorization': `Bearer ${token}`,
@@ -31,7 +33,7 @@ const PreguntaDefinicion = forwardRef(({ world, difficulty }, ref) => {
     if (world && difficulty != null) {
       fetchPregunta();
     }
-  }, [world, difficulty]); // <--- QUITAMOS indice de dependencias
+  }, [world, difficulty]); // quitamos índice de dependencias
 
   const handleSeleccion = (opcion) => {
     setSeleccionada(opcion);

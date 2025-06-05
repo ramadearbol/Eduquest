@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import iconoPerfil from "../assets/Perfil.png";
 import '../styles/Perfil.css';
 
+const BACKEND_URL = import.meta.env.REACT_APP_BACKEND_URL;
+
 function Perfil() {
   const [nombre, setNombre] = useState("");
   const [correo, setCorreo] = useState("");
@@ -14,7 +16,7 @@ function Perfil() {
   useEffect(() => {
     const token = localStorage.getItem("token");
 
-    fetch("http://localhost:8082/api/user/me", {
+    fetch(`${BACKEND_URL}/api/user/me`, {
       method: "GET",
       headers: {
         "Authorization": `Bearer ${token}`
@@ -62,7 +64,7 @@ function Perfil() {
       password: contraseñaNueva || null
     };
 
-    const url = `http://localhost:8082/api/user/me${contraseñaNueva ? `?oldPassword=${encodeURIComponent(contraseñaActual)}` : ""}`;
+    const url = `${BACKEND_URL}/api/user/me${contraseñaNueva ? `?oldPassword=${encodeURIComponent(contraseñaActual)}` : ""}`;
 
     fetch(url, {
       method: "PUT",

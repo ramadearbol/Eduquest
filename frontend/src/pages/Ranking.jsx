@@ -3,6 +3,8 @@ import "../styles/Ranking.css";
 import iconoLiga from '../assets/Liga.png';
 import iconoPerfil from '../assets/Perfil.png';
 
+const BACKEND_URL = import.meta.env.REACT_APP_BACKEND_URL;
+
 function Ranking() {
   const [jugadores, setJugadores] = useState([]);
   const [miRanking, setMiRanking] = useState(null);
@@ -12,7 +14,7 @@ function Ranking() {
 
     const fetchRanking = async () => {
       try {
-        const response = await fetch("http://localhost:8082/api/ranking", {
+        const response = await fetch(`${BACKEND_URL}/api/ranking`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -30,7 +32,7 @@ function Ranking() {
 
     const fetchMiRanking = async () => {
       try {
-        const response = await fetch("http://localhost:8082/api/ranking/me", {
+        const response = await fetch(`${BACKEND_URL}/api/ranking/me`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },

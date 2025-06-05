@@ -1,6 +1,8 @@
 import React, { useState, useEffect, forwardRef, useImperativeHandle } from 'react';
 import '../styles/Pregunta.css';
 
+const BACKEND_URL = import.meta.env.REACT_APP_BACKEND_URL;
+
 const PreguntaRelacionarConceptos = forwardRef(({ world, difficulty }, ref) => {
   const [preguntaData, setPreguntaData] = useState(null);
   const [respuestas, setRespuestas] = useState({});
@@ -10,7 +12,7 @@ const PreguntaRelacionarConceptos = forwardRef(({ world, difficulty }, ref) => {
       try {
         const token = localStorage.getItem("token");
         const res = await fetch(
-          `http://localhost:8082/api/openai/preguntaRelacionarConceptos?mundo=${encodeURIComponent(world.name)}&dificultad=${difficulty}`,
+          `${BACKEND_URL}/api/openai/preguntaRelacionarConceptos?mundo=${encodeURIComponent(world.name)}&dificultad=${difficulty}`,
           {
             headers: {
               'Authorization': `Bearer ${token}`,

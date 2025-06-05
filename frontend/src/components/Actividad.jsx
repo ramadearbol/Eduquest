@@ -8,6 +8,8 @@ import PreguntaVerdaderoFalso from '../pages/PreguntaVerdaderoFalso';
 import PreguntaCompletarCodigo from '../pages/PreguntarCompletarCodigo';
 import PreguntaRelacionarConceptos from '../pages/PreguntarRelacionarConceptos';
 
+const BACKEND_URL = import.meta.env.REACT_APP_BACKEND_URL;
+
 const preguntasComponentes = [
   PreguntaDefinicion,
   PreguntaOpcionMultiple,
@@ -24,7 +26,7 @@ function Actividad() {
   const { world, difficulty } = location.state || {};
 
   const [indiceActual, setIndiceActual] = useState(0);
-  const [progresoColores, setProgresoColores] = useState([]); // Aquí guardamos aciertos/fallos
+  const [progresoColores, setProgresoColores] = useState([]);
   const [mostrarOverlay, setMostrarOverlay] = useState(false);
   const [resultadoCorrecto, setResultadoCorrecto] = useState(false);
   const [mensajeError, setMensajeError] = useState(null);
@@ -67,9 +69,8 @@ function Actividad() {
       try {
         const token = localStorage.getItem("token");
 
-        // Solo se llama si todas fueron correctas
         if (todoCorrecto) {
-          await fetch("http://localhost:8082/api/retos/completar/1correcta", {
+          await fetch(`${BACKEND_URL}/api/retos/completar/1correcta`, {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
@@ -78,8 +79,7 @@ function Actividad() {
           });
         }
 
-        // Siempre se llama al completar la partida
-        await fetch("http://localhost:8082/api/retos/completar/1partida", {
+        await fetch(`${BACKEND_URL}/api/retos/completar/1partida`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -87,7 +87,7 @@ function Actividad() {
           },
         });
 
-        await fetch("http://localhost:8082/api/retos/completar/5partidas", {
+        await fetch(`${BACKEND_URL}/api/retos/completar/5partidas`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -95,10 +95,9 @@ function Actividad() {
           },
         });
 
-        // Controlamos que solo se llame una vez por mundo
         const mundosRegistrados = JSON.parse(localStorage.getItem("mundosRegistrados") || "[]");
         if (!mundosRegistrados.includes(world)) {
-          await fetch("http://localhost:8082/api/retos/completar/4mundos", {
+          await fetch(`${BACKEND_URL}/api/retos/completar/4mundos`, {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
@@ -108,8 +107,7 @@ function Actividad() {
           localStorage.setItem("mundosRegistrados", JSON.stringify([...mundosRegistrados, world]));
         }
 
-        // Sumar la experiencia total
-        await fetch("http://localhost:8082/api/experiencia/ganar", {
+        await fetch(`${BACKEND_URL}/api/experiencia/ganar`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
