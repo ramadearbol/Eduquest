@@ -29,31 +29,32 @@
 
 ## 🧭 Introducción <a id="introduccion"></a>
 
-**EduQuest** es una plataforma educativa interactiva diseñada para motivar a los estudiantes a través de retos gamificados.  
-Su objetivo es transformar el aprendizaje tradicional en una experiencia dinámica, participativa y divertida.
+**EduQuest** es una aplicación web de aprendizaje diseñada especialmente para programadores principiantes o novatos.  
+La plataforma permite a los usuarios aprender haciendo, a través de diferentes ejercicios generados por inteligencia artificial sobre diversos temas como Java, SQL, y otros lenguajes y tecnologías de programación.
 
-Aquí se incluirán:
-- Una breve descripción del proyecto
-- Justificación de la idea
-- Objetivos generales y específicos
-- Motivación personal para desarrollarlo
+Además de aprender, los usuarios pueden competir entre ellos mediante un sistema de ranking que clasifica a los jugadores según su nivel y experiencia acumulada (XP).  
+La XP se obtiene completando niveles de diferentes dificultades: a mayor dificultad, mayor experiencia otorgada. También hay retos diarios y semanales que incentivan la participación continua y el progreso constante.
+
+Los usuarios pueden registrarse e iniciar sesión para acceder a su perfil, donde pueden ver y modificar sus datos personales, como el nombre de usuario o la contraseña.
 
 ---
 
 ## ⚙️ Funcionalidades y Tecnologías <a id="funcionalidades-y-tecnologias"></a>
 
 ### Funcionalidades principales:
-- Sistema de retos por niveles
-- Progreso del usuario y recompensas
-- Administración de contenidos por parte de profesores
-- Foro de dudas y comunidad
-- Registro e inicio de sesión con control de roles
+- Ejercicios y retos interactivos generados por IA para distintos temas de programación (Java, SQL, etc.)  
+- Sistema de niveles y experiencia (XP) que recompensa la superación de retos según su dificultad  
+- Ranking competitivo donde los usuarios pueden comparar su progreso y posición con otros jugadores  
+- Retos diarios y semanales que mantienen la motivación y el aprendizaje constante  
+- Registro e inicio de sesión con gestión de usuarios  
+- Perfil de usuario con opción para ver y modificar datos personales (nombre de usuario, contraseña, etc.)  
+- Panel de progreso para visualizar avances y estadísticas personales  
 
 ### Tecnologías utilizadas:
-- **Frontend:** React (JSX/JavaScript)
-- **Backend:** Spring Boot (Java)
-- **Base de datos:** Supabase (PostgreSQL gestionado)
-- **Diseño de interfaz:** Figma
+- **Frontend:** React (JSX/JavaScript)  
+- **Backend:** Spring Boot (Java)  
+- **Base de datos:** Supabase (PostgreSQL gestionado)  
+- **Diseño de interfaz:** Figma  
 - **Control de versiones:** Git + GitHub
 
 ---
