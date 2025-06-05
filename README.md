@@ -14,13 +14,13 @@
 
 ## 📑 Índice
 
-1. [Introducción](#introducción)  
-2. [Funcionalidades y Tecnologías](#funcionalidades-y-tecnologías)  
-3. [Guía de Instalación](#guía-de-instalación)  
-4. [Guía de Uso](#guía-de-uso)  
-5. [Documentación Técnica](#documentación-técnica)  
-6. [Diseño de la Interfaz (Figma)](#diseño-de-la-interfaz-figma)  
-7. [Conclusión](#conclusión)  
+1. [Introducción](#introduccion)  
+2. [Funcionalidades y Tecnologias](#funcionalidades-y-tecnologias)  
+3. [Guia de Instalacion](#guia-de-instalacion)  
+4. [Guia de Uso](#guia-de-uso)  
+5. [Documentacion Tecnica](#documentacion-tecnica)  
+6. [Diseno de la Interfaz Figma](#diseno-de-la-interfaz-figma)  
+7. [Conclusion](#conclusion)  
 8. [Contribuciones y Agradecimientos](#contribuciones-y-agradecimientos)  
 9. [Licencia](#licencia)  
 10. [Contacto](#contacto)
