@@ -13,8 +13,11 @@ public class CorsConfig {
         return new WebMvcConfigurer() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/**") // todas las rutas
-                        .allowedOrigins("http://localhost:5173") // frontend React
+                registry.addMapping("/**")
+                        .allowedOrigins(
+                            "http://localhost:5173",  // para desarrollo local
+                            "https://eduquest-mu.vercel.app"  // producción en Vercel
+                        )
                         .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                         .allowCredentials(true);
             }
