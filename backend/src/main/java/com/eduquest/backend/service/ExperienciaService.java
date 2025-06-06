@@ -25,7 +25,7 @@ public class ExperienciaService {
      * Reintenta hasta 3 veces en caso de error con delay.
      */
     @Transactional(readOnly = true)
-    @Retryable(value = Exception.class, maxAttempts = 3, backoff = @Backoff(delay = 500))
+    @Retryable(value = Exception.class, maxAttempts = 10, backoff = @Backoff(delay = 500))
     public Map<String, List<RetoDto>> obtenerRetosPorUsuario(UUID idUsuario) {
         List<RetoDto> diarios = obtenerRetosPorTipoYUsuario(idUsuario, "diario");
         List<RetoDto> semanales = obtenerRetosPorTipoYUsuario(idUsuario, "semanal");

@@ -31,7 +31,7 @@ public class RankingService {
      */
     @Retryable(
         value = Exception.class,
-        maxAttempts = 5,
+        maxAttempts = 10,
         backoff = @Backoff(delay = 500)
     )
     public List<Ranking> getAllRanking() {
