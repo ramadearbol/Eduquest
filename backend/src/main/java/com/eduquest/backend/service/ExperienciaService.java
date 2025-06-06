@@ -19,13 +19,22 @@ public class ExperienciaService {
 
     @Transactional(readOnly = true)
     public Map<String, List<RetoDto>> obtenerRetosPorUsuario(UUID idUsuario) {
-        List<RetoDto> diarios = obtenerRetosPorTipoYUsuario(idUsuario, "diario");
-        List<RetoDto> semanales = obtenerRetosPorTipoYUsuario(idUsuario, "semanal");
+        while (true) {
+            try {
+                List<RetoDto> diarios = obtenerRetosPorTipoYUsuario(idUsuario, "diario");
+                List<RetoDto> semanales = obtenerRetosPorTipoYUsuario(idUsuario, "semanal");
 
-        Map<String, List<RetoDto>> map = new HashMap<>();
-        map.put("diarios", diarios);
-        map.put("semanales", semanales);
-        return map;
+                Map<String, List<RetoDto>> map = new HashMap<>();
+                map.put("diarios", diarios);
+                map.put("semanales", semanales);
+                return map;
+            } catch (Exception e) {
+                System.err.println("Error al obtener retos. Reintentando... " + e.getMessage());
+                try {
+                    Thread.sleep(500); // Espera antes de reintentar
+                } catch (InterruptedException ignored) {}
+            }
+        }
     }
 
     

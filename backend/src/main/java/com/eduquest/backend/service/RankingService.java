@@ -4,9 +4,6 @@ import com.eduquest.backend.model.Ranking;
 import com.eduquest.backend.model.User;
 import com.eduquest.backend.repository.RankingRepository;
 import com.eduquest.backend.repository.UserRepository;
-
-import jakarta.transaction.Transactional;
-
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,28 +14,36 @@ import java.util.UUID;
 public class RankingService {
 
     private final RankingRepository rankingRepository;
-    private final UserRepository userRepository;  // <-- agregar esto
+    private final UserRepository userRepository;
 
-    // Inyecta ambos repositorios en el constructor
     public RankingService(RankingRepository rankingRepository, UserRepository userRepository) {
         this.rankingRepository = rankingRepository;
         this.userRepository = userRepository;
     }
 
-    @Transactional
     public List<Ranking> getAllRanking() {
-        return rankingRepository.findAll();
+        try {
+            return rankingRepository.findAll();
+        } catch (Exception e) {
+            System.err.println("Error en getAllRanking, reintentando... " + e.getMessage());
+            try { Thread.sleep(500); } catch (InterruptedException ignored) {}
+            return rankingRepository.findAll();
+        }
     }
 
-    @Transactional
     public Optional<Ranking> getRankingByUserId(UUID userId) {
-        return rankingRepository.findByIdusuario(userId);
+        try {
+            return rankingRepository.findByIdusuario(userId);
+        } catch (Exception e) {
+            System.err.println("Error en getRankingByUserId, reintentando... " + e.getMessage());
+            try { Thread.sleep(500); } catch (InterruptedException ignored) {}
+            return rankingRepository.findByIdusuario(userId);
+        }
     }
 
-    @Transactional
     public UUID getUserIdByEmail(String email) {
-        return userRepository.findByEmail(email)   // <-- usar la instancia
+        return userRepository.findByEmail(email)
                 .map(User::getId)
-                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado: " + email));
     }
 }
