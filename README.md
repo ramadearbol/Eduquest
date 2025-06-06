@@ -51,7 +51,7 @@ Los usuarios pueden registrarse e iniciar sesión para acceder a su perfil, dond
 - Panel de progreso para visualizar avances y estadísticas personales  
 
 ### Tecnologías utilizadas:
-- **Frontend:** React (JSX/JavaScript)  
+- **Frontend:** Vite + React (JSX/JavaScript)  
 - **Backend:** Spring Boot (Java)  
 - **Base de datos:** Supabase (PostgreSQL gestionado)  
 - **Diseño de interfaz:** Figma  
@@ -61,20 +61,154 @@ Los usuarios pueden registrarse e iniciar sesión para acceder a su perfil, dond
 
 ## 🛠️ Guía de Instalación <a id="guia-de-instalacion"></a>
 
-1. Clona el repositorio:
-   ```bash
-   git clone https://github.com/usuario/eduquest.git
+Sigue estos pasos para instalar y poner en funcionamiento el proyecto **EduQuest** en tu entorno local.
 
+## 1. Requisitos previos
+
+Antes de comenzar, asegúrate de tener instaladas las siguientes herramientas en tu sistema:
+
+- **Git**: Para clonar el repositorio.  
+- **Node.js** (versión 16 o superior): Para ejecutar el frontend.  
+  Puedes descargarlo desde [https://nodejs.org/](https://nodejs.org/)  
+- **Maven**: Para compilar y ejecutar el backend con Spring Boot.  
+  Descárgalo e instálalo desde [https://maven.apache.org/](https://maven.apache.org/)  
+- **Java JDK 11 o superior**: Requerido para Spring Boot (backend).  
+- **Acceso a la base de datos Supabase**: Configura tu base de datos en Supabase y asegúrate de tener los datos de conexión (URL, usuario, contraseña) para configurar el backend.
+
+## 2. Clonar el repositorio
+
+Abre una terminal o consola y clona el repositorio oficial de EduQuest:
+
+```bash
+git clone https://github.com/ramadearbol/Eduquest.git
+cd Eduquest
+```
+
+## 3. Configurar y ejecutar el backend
+
+En la terminal, navega a la carpeta del backend:
+
+```bash
+cd backend
+```
+Asegúrate de tener configurados los parámetros de conexión a la base de datos Supabase en el archivo de configuración del backend (por ejemplo, `application.properties` o `application.yml`).
+
+Instala las dependencias y ejecuta el backend con Maven:
+
+```bash
+mvn clean install
+mvn spring-boot:run
+```
+
+Si todo va bien, el backend se iniciará en http://localhost:8080.
+
+## Configurar y ejecutar el frontend
+
+Abre una nueva terminal y navega a la carpeta del frontend:
+
+```bash
+cd frontend
+```
+Instala las dependencias necesarias con npm:
+
+```bash
+npm install
+```
+
+Inicia el servidor de desarrollo:
+
+```bash
+npm run dev
+```
+
+## ✅ Verificar el funcionamiento
+
+Una vez desplegada, la app estará disponible en:
+
+- **Frontend local**: [http://localhost:3000](http://localhost:3000)
+- **Backend local**: [http://localhost:8080](http://localhost:8080)
+- **Backend en producción (Railway)**: [https://eduquest-api.up.railway.app](https://eduquest-api.up.railway.app)
+- **Frontend en producción (Vercel)** [https://eduquest-api.up.railway.app](https://eduquest-mu.vercel.app/)
+
+Deberías poder acceder a la interfaz de **EduQuest**, registrarte, iniciar sesión y comenzar a usar la plataforma.
+
+El backend manejará las peticiones y la base de datos **Supabase** almacenará la información.
 
 ---
 
 ## 📚 Guía de Uso <a id="guia-de-uso"></a>
 
-- Regístrate como usuario (estudiante o profesor)  
-- Accede al panel principal  
-- Elige un reto educativo  
-- Completa las actividades propuestas  
-- Visualiza tu progreso en el panel de usuario
+A continuación, se explica cómo utilizar las principales funcionalidades de **EduQuest** una vez iniciada la aplicación:
+
+## 🔐 Registro e Inicio de Sesión
+
+Al acceder por primera vez, puedes registrarte introduciendo:
+
+- Nombre de usuario  
+- Correo electrónico  
+- Contraseña
+
+Una vez registrado, puedes iniciar sesión con tu correo y contraseña.
+
+## 🧭 Navegación general
+
+En la parte izquierda de la pantalla encontrarás el menú de navegación lateral (**navbar**), desde el cual puedes acceder a todas las secciones de la aplicación:
+
+- **Aprender**
+- **Retos**
+- **Ranking**
+- **Perfil**
+- **Cerrar sesión**
+
+## 🎓 Sección Aprender
+
+En esta sección se muestran diferentes **mundos temáticos**, cada uno enfocado en una tecnología (por ejemplo: Java, SQL, etc.).
+
+#### Para comenzar un reto:
+
+1. Haz clic en uno de los mundos.
+2. Se abrirá un **pop-up** para elegir la dificultad:
+   - ⭐ Fácil (1 estrella)
+   - ⭐⭐ Medio (2 estrellas)
+   - ⭐⭐⭐ Difícil (3 estrellas)
+3. Tras seleccionar la dificultad, comenzarás un **reto compuesto por 5 preguntas interactivas**.
+4. Al finalizar el reto, obtendrás **experiencia (XP)** según la dificultad elegida.
+
+## 🏆 Sección Retos
+
+En esta pestaña encontrarás los **Retos Diarios** y **Retos Semanales**.
+
+- Cada reto tiene condiciones específicas (por ejemplo: completar un número de ejercicios).
+- Puedes **reclamar XP** al completar los retos.
+- Los retos se **reinician automáticamente** cuando termina su periodo:
+  - Diarios: cada 24 horas  
+  - Semanales: cada 7 días
+
+## 📊 Sección Ranking
+
+Muestra una **clasificación general de los jugadores**. Incluye:
+
+- Posición
+- Nombre de usuario
+- Nivel
+- XP acumulada
+
+> 🔹 El ranking se ordena primero por **nivel** y luego por **XP**.
+
+Al final de la lista, verás un resumen con tu usuario, nivel y XP.
+
+## 👤 Sección Perfil
+
+En esta sección puedes ver y modificar tus **datos personales**:
+
+- Cambiar el **nombre de usuario**
+- Ver el **correo electrónico**
+- Cambiar la **contraseña**  
+  (es necesario introducir la contraseña actual y la nueva)
+
+## 🚪 Cerrar Sesión
+
+En cualquier momento puedes cerrar sesión usando el botón **"Cerrar sesión"**, ubicado en la parte inferior del menú lateral.
 
 ---
 
@@ -106,32 +240,33 @@ Aquí se muestra tanto el diseño general de la interfaz como la simulación int
 
 ## 🧩 Conclusión <a id="conclusion"></a>
 
-**EduQuest** es un proyecto que refleja cómo la tecnología puede apoyar al sistema educativo mediante metodologías activas y gamificación.
+**EduQuest** demuestra el potencial de la gamificación en la educación, combinando la motivación del juego con el aprendizaje de la programación.
 
-Gracias al desarrollo de esta aplicación:
+### Principales logros del proyecto:
 
-- He consolidado conocimientos técnicos del ciclo DAM  
-- He aprendido a organizar un proyecto completo desde cero  
-- He trabajado habilidades de diseño y experiencia de usuario
+- ✅ **Aplicación completa y funcional** que combina frontend, backend y base de datos.
+- 🛠️ **Consolidación de conocimientos técnicos** en tecnologías como React, Spring Boot y PostgreSQL.
+- 🎯 **Enfoque en la experiencia del usuario**, desde el diseño en Figma hasta la navegación fluida.
+- 📈 **Desarrollo de competencias clave**, como la planificación, la toma de decisiones técnicas y la documentación.
+
+Este proyecto representa no solo una herramienta educativa, sino también un reto personal superado con éxito.
 
 ---
 
 ## 🤝 Contribuciones y Agradecimientos <a id="contribuciones-y-agradecimientos"></a>
 
-Agradezco el apoyo de:
+A lo largo del desarrollo de **EduQuest**, he contado con la inspiración y el apoyo de diversas personas y recursos:
 
-- Mis tutores y profesores del ciclo  
-- Compañeros que me ayudaron con feedback y pruebas  
-- Las herramientas de código abierto y documentación utilizadas  
+- 👨‍🏫 **Profesorado y tutores** del ciclo DAM, por su orientación y conocimientos.
+- 👥 **Compañeros de clase y de prácticas**, por su feedback y colaboración en pruebas.
+- 💻 **Herramientas de código abierto**, como React, Spring Boot, Supabase y Figma, que han sido clave para el desarrollo.
 
-Inspiración tomada de plataformas como Duolingo, Moodle y Kahoot.
-
+> 📌 Inspiración tomada de plataformas como **Duolingo**, **Moodle** y **Kahoot**
 ---
 
 ## 📜 Licencia <a id="licencia"></a>
 
-Este proyecto se publica bajo la **Licencia MIT**.  
-Consulta el archivo [LICENSE](./LICENSE) para más detalles.
+Este proyecto está licenciado bajo los términos de la **Licencia MIT**, lo que permite su uso, modificación y distribución libre con reconocimiento al autor.
 
 ---
 
@@ -139,5 +274,3 @@ Consulta el archivo [LICENSE](./LICENSE) para más detalles.
 
 - 📧 Email: rgaviraferrusola@gmail.com
 - 🐙 GitHub: [@ramongavira](https://github.com/ramadearbol)  
-- 💼 LinkedIn: [linkedin.com/in/ramongavira](https://www.linkedin.com/in/ramongavira)
-
