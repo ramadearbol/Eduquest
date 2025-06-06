@@ -128,7 +128,7 @@ Una vez desplegada, la app estará disponible en:
 - **Frontend local**: [http://localhost:3000](http://localhost:3000)
 - **Backend local**: [http://localhost:8080](http://localhost:8080)
 - **Backend en producción (Railway)**: [https://eduquest-api.up.railway.app](https://eduquest-api.up.railway.app)
-- **Frontend en producción (Vercel)** [https://eduquest-api.up.railway.app](https://eduquest-mu.vercel.app/)
+- **Frontend en producción (Vercel)** [https://eduquest-mu.vercel.app](https://eduquest-mu.vercel.app)
 
 Deberías poder acceder a la interfaz de **EduQuest**, registrarte, iniciar sesión y comenzar a usar la plataforma.
 
