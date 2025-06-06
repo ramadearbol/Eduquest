@@ -15,23 +15,33 @@ import org.springframework.retry.annotation.Recover;
 
 @Service
 public class RankingService {
+
     private final RankingRepository rankingRepository;
     private final UserRepository userRepository;
 
+    // Constructor para inyección de dependencias
     public RankingService(RankingRepository rankingRepository, UserRepository userRepository) {
         this.rankingRepository = rankingRepository;
         this.userRepository = userRepository;
     }
 
+    /**
+     * Obtiene todos los rankings.
+     * Se reintentará hasta 5 veces con un delay de 500 ms si ocurre alguna excepción.
+     */
     @Retryable(
         value = Exception.class,
-        maxAttempts = 3,
+        maxAttempts = 5,
         backoff = @Backoff(delay = 500)
     )
     public List<Ranking> getAllRanking() {
         return rankingRepository.findAll();
     }
 
+    /**
+     * Obtiene un ranking por el ID de usuario.
+     * Se reintentará hasta 3 veces con un delay de 500 ms si ocurre alguna excepción.
+     */
     @Retryable(
         value = Exception.class,
         maxAttempts = 3,
@@ -41,23 +51,33 @@ public class RankingService {
         return rankingRepository.findByIdusuario(userId);
     }
 
+    /**
+     * Obtiene el UUID del usuario dado su email.
+     * Lanza excepción si no se encuentra el usuario.
+     */
     public UUID getUserIdByEmail(String email) {
         return userRepository.findByEmail(email)
                 .map(User::getId)
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado: " + email));
     }
 
-    // Este método se invoca si todos los intentos de getAllRanking fallan
+    /**
+     * Método recover para getAllRanking.
+     * Se ejecuta si después de todos los reintentos sigue fallando.
+     */
     @Recover
     public List<Ranking> recoverGetAllRanking(Exception e) {
         System.err.println("Error crítico en getAllRanking: " + e.getMessage());
-        return List.of(); // o lanza una excepción si prefieres
+        return List.of(); // Puedes cambiar para lanzar una excepción si prefieres
     }
 
-    // Este método se invoca si todos los intentos de getRankingByUserId fallan
+    /**
+     * Método recover para getRankingByUserId.
+     * Se ejecuta si después de todos los reintentos sigue fallando.
+     */
     @Recover
     public Optional<Ranking> recoverGetRankingByUserId(Exception e, UUID userId) {
         System.err.println("Error crítico en getRankingByUserId: " + e.getMessage());
-        return Optional.empty(); // o lanza una excepción si prefieres
+        return Optional.empty(); // Puedes cambiar para lanzar una excepción si prefieres
     }
 }

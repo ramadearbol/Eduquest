@@ -14,6 +14,12 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    /**
+     * Obtiene los datos del usuario actualmente autenticado.
+     * @param principal Representa al usuario autenticado
+     * @return Objeto User con los datos del usuario
+     * @throws RuntimeException si no hay usuario autenticado o no se encuentra el usuario
+     */
     @GetMapping("/me")
     public User getCurrentUser(Principal principal) {
         if (principal == null) {
@@ -24,6 +30,14 @@ public class UserController {
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
     }
 
+    /**
+     * Actualiza el perfil del usuario autenticado.
+     * @param updatedData Datos actualizados del usuario (username, email, password)
+     * @param oldPassword Contraseña actual para validar si se quiere cambiar la contraseña
+     * @param principal Usuario autenticado
+     * @return Usuario actualizado
+     * @throws RuntimeException si no hay usuario autenticado o no se encuentra el usuario
+     */
     @PutMapping("/me")
     public User updateProfile(@RequestBody User updatedData,
                               @RequestParam(required = false) String oldPassword,

@@ -29,6 +29,11 @@ public class RetoController {
     @Autowired
     private AuthService authService;
 
+    /**
+     * Obtiene los retos del usuario autenticado.
+     * @param principal Usuario autenticado
+     * @return Mapa con listas de retos diarios y semanales
+     */
     @GetMapping("/usuario")
     public Map<String, List<RetoDto>> getRetosUsuario(Principal principal) {
         User user = userService.getUserByEmail(principal.getName())
@@ -36,19 +41,21 @@ public class RetoController {
         return experienciaService.obtenerRetosPorUsuario(user.getId());
     }
 
-   @PostMapping("/reclamar")
+    /**
+     * Reclama la recompensa de un reto específico.
+     * @param dto DTO con datos del reto a reclamar
+     * @param principal Usuario autenticado
+     * @return Mensaje con resultado del reclamo
+     */
+    @PostMapping("/reclamar")
     public String reclamarReto(@RequestBody RetoReclamarDto dto, Principal principal) {
-        // Obtener el email del usuario autenticado
         String email = principal.getName();
-
-        // Obtener el UUID del usuario con el método de authService
         UUID idUsuario = authService.getIdUsuarioByEmail(email);
 
         if (idUsuario == null) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Usuario no identificado");
         }
 
-        // Ahora sí llamar al servicio con el idUsuario correcto
         String resultado = experienciaService.reclamarReto(
             idUsuario,
             dto.getIdReto(),
@@ -63,24 +70,36 @@ public class RetoController {
         return "Recompensa reclamada correctamente.";
     }
 
+    /**
+     * Actualiza el progreso del reto de "una hora de sesión" para el usuario.
+     */
     @PostMapping("/hora")
     public void actualizarHoraSesion(Principal principal) {
         UUID idUsuario = authService.getIdUsuarioByEmail(principal.getName());
         experienciaService.actualizarRetoUnaHora(idUsuario);
     }
 
+    /**
+     * Marca el reto de completar una partida como completado.
+     */
     @PostMapping("/completar/1partida")
     public void completarUnaPartida(Principal principal) {
         UUID idUsuario = authService.getIdUsuarioByEmail(principal.getName());
         experienciaService.actualizarRetoCompletarUnaPartida(idUsuario);
     }
 
+    /**
+     * Actualiza el progreso del reto de completar cinco partidas.
+     */
     @PostMapping("/completar/5partidas")
     public void completarCincoPartidas(Principal principal) {
         UUID idUsuario = authService.getIdUsuarioByEmail(principal.getName());
         experienciaService.actualizarRetoCompletarCincoPartidas(idUsuario);
     }
 
+    /**
+     * Marca el reto de hacer una pregunta sin error como completado.
+     */
     @PostMapping("/completar/1correcta")
     public void completarPreguntaCorrecta(Principal principal) {
         UUID idUsuario = authService.getIdUsuarioByEmail(principal.getName());

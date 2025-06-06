@@ -20,6 +20,10 @@ public class ExperienciaService {
     @PersistenceContext
     private EntityManager entityManager;
 
+    /**
+     * Obtiene los retos diarios y semanales de un usuario.
+     * Reintenta hasta 3 veces en caso de error con delay.
+     */
     @Transactional(readOnly = true)
     @Retryable(value = Exception.class, maxAttempts = 3, backoff = @Backoff(delay = 500))
     public Map<String, List<RetoDto>> obtenerRetosPorUsuario(UUID idUsuario) {
@@ -32,12 +36,19 @@ public class ExperienciaService {
         return map;
     }
 
+    /**
+     * Método de recuperación si falla persistentemente la obtención de retos.
+     * Devuelve mapas vacíos.
+     */
     @Recover
     public Map<String, List<RetoDto>> recoverObtenerRetosPorUsuario(Exception e, UUID idUsuario) {
         System.err.println("Error persistente al obtener retos para usuario " + idUsuario + ": " + e.getMessage());
         return Map.of("diarios", Collections.emptyList(), "semanales", Collections.emptyList());
     }
 
+    /**
+     * Consulta nativa para obtener retos de un tipo específico para un usuario.
+     */
     private List<RetoDto> obtenerRetosPorTipoYUsuario(UUID idUsuario, String tipo) {
         String sql = "SELECT r.id AS id_reto, r.descripcion, pr.progreso_actual, r.total, pr.completado, r.xp_recompensa, r.tipo " +
                 "FROM retos r " +
@@ -66,6 +77,10 @@ public class ExperienciaService {
         return lista;
     }
 
+    /**
+     * Llama a procedimiento almacenado para reclamar un reto,
+     * pasando usuario, reto, tipo y experiencia ganada.
+     */
     @Transactional
     public String reclamarReto(UUID idUsuario, int idReto, String tipo, int xpGanada) {
         try {
@@ -83,6 +98,9 @@ public class ExperienciaService {
         }
     }
 
+    /**
+     * Llama a procedimiento almacenado para sumar experiencia a un usuario.
+     */
     @Transactional
     public void ganarExperiencia(UUID idUsuario, int xpGanada) {
         try {
@@ -98,6 +116,9 @@ public class ExperienciaService {
         }
     }
 
+    /**
+     * Actualiza el progreso del reto "iniciar sesión" para un usuario.
+     */
     @Transactional
     public void actualizarRetoLogin(UUID idUsuario) {
         Query query = entityManager.createNativeQuery("""
@@ -114,6 +135,9 @@ public class ExperienciaService {
         query.executeUpdate();
     }
 
+    /**
+     * Verifica si el reto "iniciar sesión" está completado para un usuario.
+     */
     @Transactional
     public boolean estaRetoLoginCompletado(UUID idUsuario) {
         String sql = """
@@ -132,6 +156,9 @@ public class ExperienciaService {
         return Boolean.TRUE.equals(result);
     }
 
+    /**
+     * Actualiza el progreso del reto "una hora".
+     */
     @Transactional
     public void actualizarRetoUnaHora(UUID idUsuario) {
         Query query = entityManager.createNativeQuery("""
@@ -150,6 +177,10 @@ public class ExperienciaService {
         query.executeUpdate();
     }
 
+    /**
+     * Resetea los retos de un tipo (diario/semanal), eliminando progresos y retos completados,
+     * y reinserta los retos para todos los usuarios.
+     */
     @Transactional
     public void resetRetosPorTipo(String tipo) {
         entityManager.createNativeQuery(
@@ -180,16 +211,25 @@ public class ExperienciaService {
         }
     }
 
+    /**
+     * Resetea los retos diarios a medianoche todos los días.
+     */
     @Scheduled(cron = "0 0 0 * * ?")
     public void resetDiarios() {
         resetRetosPorTipo("diario");
     }
 
+    /**
+     * Resetea los retos semanales a medianoche todos los lunes.
+     */
     @Scheduled(cron = "0 0 0 ? * MON")
     public void resetSemanales() {
         resetRetosPorTipo("semanal");
     }
 
+    /**
+     * Actualiza el reto "completar una partida" como completado para un usuario.
+     */
     @Transactional
     public void actualizarRetoCompletarUnaPartida(UUID idUsuario) {
         Query query = entityManager.createNativeQuery("""
@@ -207,6 +247,9 @@ public class ExperienciaService {
         query.executeUpdate();
     }
 
+    /**
+     * Incrementa el progreso y marca como completado el reto de "completar 5 partidas".
+     */
     @Transactional
     public void actualizarRetoCompletarCincoPartidas(UUID idUsuario) {
         Query query = entityManager.createNativeQuery("""
@@ -226,6 +269,9 @@ public class ExperienciaService {
         query.executeUpdate();
     }
 
+    /**
+     * Marca como completado el reto "haz una pregunta sin error".
+     */
     @Transactional
     public void actualizarRetoPreguntaSinError(UUID idUsuario) {
         Query query = entityManager.createNativeQuery("""

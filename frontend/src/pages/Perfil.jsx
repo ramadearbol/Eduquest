@@ -5,6 +5,7 @@ import '../styles/Perfil.css';
 const BACKEND_URL = import.meta.env.VITE_REACT_APP_BACKEND_URL;
 
 function Perfil() {
+  // Estados para el formulario
   const [nombre, setNombre] = useState("");
   const [correo, setCorreo] = useState("");
   const [contraseñaActual, setContraseñaActual] = useState("");
@@ -13,6 +14,7 @@ function Perfil() {
   const [changesMade, setChangesMade] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
 
+  // Al montar el componente, obtener datos del perfil desde backend
   useEffect(() => {
     const token = localStorage.getItem("token");
 
@@ -37,21 +39,21 @@ function Perfil() {
       });
   }, []);
 
+  // Detecta si hay cambios para activar o desactivar el botón "Guardar"
   useEffect(() => {
-    if (
+    const changed = 
       nombre !== nombreOriginal ||
-      contraseñaActual ||
-      contraseñaNueva
-    ) {
-      setChangesMade(true);
-    } else {
-      setChangesMade(false);
-    }
+      contraseñaActual.length > 0 ||
+      contraseñaNueva.length > 0;
+
+    setChangesMade(changed);
   }, [nombre, contraseñaActual, contraseñaNueva, nombreOriginal]);
 
+  // Maneja el guardado de cambios en nombre o contraseña
   const handleGuardarCambios = () => {
     setErrorMsg("");
 
+    // Validación: si se quiere cambiar contraseña, ambos campos deben estar completos
     if ((contraseñaNueva && !contraseñaActual) || (!contraseñaNueva && contraseñaActual)) {
       setErrorMsg("Debe completar ambos campos de contraseña para cambiarla");
       return;
@@ -59,11 +61,13 @@ function Perfil() {
 
     const token = localStorage.getItem("token");
 
+    // Payload para enviar al backend
     const payload = {
       username: nombre,
       password: contraseñaNueva || null
     };
 
+    // Si cambia la contraseña, enviamos la contraseña actual como query param para validar backend
     const url = `${BACKEND_URL}/api/user/me${contraseñaNueva ? `?oldPassword=${encodeURIComponent(contraseñaActual)}` : ""}`;
 
     fetch(url, {
@@ -79,6 +83,7 @@ function Perfil() {
         return res.json();
       })
       .then(data => {
+        // Actualizar estado con nuevos valores tras guardado exitoso
         setNombreOriginal(data.username);
         setContraseñaActual("");
         setContraseñaNueva("");
@@ -127,6 +132,7 @@ function Perfil() {
               value={contraseñaActual}
               onChange={(e) => setContraseñaActual(e.target.value)}
               className="form-input"
+              autoComplete="current-password"
             />
           </div>
 
@@ -138,15 +144,18 @@ function Perfil() {
               value={contraseñaNueva}
               onChange={(e) => setContraseñaNueva(e.target.value)}
               className="form-input"
+              autoComplete="new-password"
             />
           </div>
 
+          {/* Mostrar mensaje de error si existe */}
           {errorMsg && (
             <div className="error-message">
               {errorMsg}
             </div>
           )}
 
+          {/* Botón deshabilitado si no hay cambios */}
           <button
             onClick={handleGuardarCambios}
             className="save-btn"
