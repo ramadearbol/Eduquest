@@ -214,7 +214,7 @@ En cualquier momento puedes cerrar sesión usando el botón **"Cerrar sesión"**
 
 ## 📄 Documentación Técnica <a id="documentacion-tecnica"></a>
 
-🔗 [Ver documentación completa](https://docs.google.com/document/d/18ApGvmYp0JX7P3j-dxGN12sSd52T4x352XwxLtdDwEY/edit?usp=sharing)
+🔗 [Ver documentación completa](https://docs.google.com/document/d/1-ojeoR3Z0xTYy6RQOwXoeB2QexeSiuwdcgNR00ndw9k/edit?usp=sharing)
 
 La documentación incluye:
 
